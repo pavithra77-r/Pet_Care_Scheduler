@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawCare - Pet Management System</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, serif;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(255, 214, 220, 0.55), transparent 25%),
+      radial-gradient(circle at top right, rgba(181, 212, 244, 0.45), transparent 25%),
+      linear-gradient(135deg, #fffaf6 0%, #f7f4ff 50%, #eefaf4 100%);
+    overflow-x: hidden;
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(180,180,180,0.45);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.75);
+    color: #111;
+    width: 100%;
+    outline: none;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: #7F77DD;
+    box-shadow: 0 0 0 3px rgba(127,119,221,0.15);
+    transform: translateY(-1px);
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .glass-card {
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 12px 30px rgba(83, 74, 183, 0.10);
+  }
+
+  .cute-title {
+    background: linear-gradient(90deg, #534AB7, #D85A30, #0F6E56);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .floating-pet {
+    position: absolute;
+    font-size: 34px;
+    opacity: 0.9;
+    animation: floaty 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .floating-pet.small {
+    font-size: 24px;
+    opacity: 0.75;
+  }
+
+  @keyframes floaty {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .pet-banner {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .pet-bubble {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  .bubble-dog { background: linear-gradient(135deg, #FFF0D8, #FFE3B3); }
+  .bubble-cat { background: linear-gradient(135deg, #FFE2EC, #FFD1E1); }
+  .bubble-bird { background: linear-gradient(135deg, #DDF6FF, #C9EDFF); }
+  .bubble-rabbit { background: linear-gradient(135deg, #F2E7FF, #E4D6FF); }
+  .bubble-fish { background: linear-gradient(135deg, #DFFFF2, #CBF7E5); }
+
+  .hero-strip {
+    margin-top: 14px;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    text-align: center;
+    font-size: 14px;
+    color: #5F5E5A;
+  }
+
+  .cute-pop {
+    animation: popIn 0.28s ease;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .page-shell {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(255, 214, 220, 0.35), transparent 25%),
+      radial-gradient(circle at top right, rgba(181, 212, 244, 0.30), transparent 25%),
+      linear-gradient(135deg, #fffaf6 0%, #f7f4ff 50%, #eefaf4 100%);
+  .sidebar-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  padding: 20px 16px;
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-right: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 8px 0 20px rgba(0,0,0,0.04);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: #333;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-btn:hover {
+  background: rgba(83, 74, 183, 0.08);
+}
+
+.sidebar-btn.active {
+  background: linear-gradient(135deg, rgba(83,74,183,0.14), rgba(175,169,236,0.18));
+  color: #534AB7;
+  font-weight: 600;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.45);
+  cursor: pointer;
+}
+
+.profile-panel {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  width: 320px;
+  z-index: 999;
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  padding: 18px;
+}
+
+.profile-section {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+}
+
+.profile-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.profile-value {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 92px;
+    padding: 18px 10px;
+  }
+
+  .sidebar-brand span {
+    display: none;
+  }
+
+  .sidebar-btn {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+  }
+</style>
+</head>
+<body>
+{% raw %}
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+async function api(url, options = {}) {
+  const response = await fetch(url, {
+    headers: { "Content-Type": "application/json" },
+    ...options
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Something went wrong");
+  }
+
+  return data;
+}
+
+async function loadData() {
+  const result = await api("/api/dashboard-data");
+  return result;
+}
+
+const PET_TYPES = ['Dog','Cat','Bird','Rabbit','Fish','Hamster','Other'];
+
+function Avatar({ name, size=40, bg='#EEEDFE', color='#534AB7' }) {
+  const initials = name ? name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) : '?';
+  return (
+    <div style={{
+      width:size,height:size,borderRadius:'50%',background:bg,color,
+      display:'flex',alignItems:'center',justifyContent:'center',
+      fontWeight:500,fontSize:size*0.36,flexShrink:0,
+      boxShadow:'0 6px 14px rgba(0,0,0,0.08)'
+    }}>
+      {initials}
+    </div>
+  );
+}
+
+function Badge({ children, color='#534AB7', bg='#EEEDFE' }) {
+  return (
+    <span style={{
+      background:bg,color,fontSize:11,padding:'3px 8px',
+      borderRadius:20,fontWeight:500
+    }}>
+      {children}
+    </span>
+  );
+}
+
+function Card({ children, style={} }) {
+  return (
+    <div
+      className="glass-card cute-pop"
+      style={{
+        borderRadius: 18,
+        padding: '1rem 1.25rem',
+        ...style
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Input({ label, ...props }) {
+  return (
+    <div style={{marginBottom:14}}>
+      {label && (
+        <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>
+          {label}
+        </label>
+      )}
+      <input {...props}/>
+    </div>
+  );
+}
+
+function Select({ label, options, ...props }) {
+  return (
+    <div style={{marginBottom:14}}>
+      {label && (
+        <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>
+          {label}
+        </label>
+      )}
+      <select
+        {...props}
+        style={{
+          fontFamily:'inherit',
+          fontSize:14,
+          padding:'10px 12px',
+          border:'1px solid rgba(180,180,180,0.45)',
+          borderRadius:12,
+          background:'rgba(255,255,255,0.75)',
+          color:'#111',
+          width:'100%',
+          outline:'none'
+        }}
+      >
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function Btn({ children, onClick, variant='primary', style={}, disabled=false }) {
+  const base = {
+    padding:'10px 20px',
+    borderRadius:12,
+    fontSize:14,
+    fontWeight:500,
+    border:'none',
+    cursor:disabled?'not-allowed':'pointer',
+    transition:'all 0.15s',
+    opacity:disabled?0.5:1,
+    boxShadow:'0 8px 16px rgba(0,0,0,0.06)',
+    ...style
+  };
+
+  const variants = {
+    primary:{background:'#534AB7',color:'#fff'},
+    secondary:{background:'rgba(255,255,255,0.8)',color:'#111',border:'0.5px solid #ccc'},
+    ghost:{background:'transparent',color:'#534AB7',border:'0.5px solid #AFA9EC'}
+  };
+
+  return <button onClick={onClick} disabled={disabled} style={{...base,...variants[variant]}}>{children}</button>;
+}
+
+function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
+  const items = user?.role === 'doctor'
+    ? [
+        { key: 'dashboard', label: '🏠 Dashboard' },
+        { key: 'patients', label: '🩺 Patients' },
+        { key: 'profile', label: '👤 Profile' }
+      ]
+    : [
+        { key: 'dashboard', label: '🏠 Dashboard' },
+        { key: 'pets', label: '🐾 My Pets' },
+        { key: 'profile', label: '👤 Profile' }
+      ];
+
+  return (
+    <div className="sidebar">
+      <div className="sidebar-brand">
+        <span>🐾</span>
+        <span className="cute-title">PawCare</span>
+      </div>
+
+      <div style={{ marginBottom: 18 }}>
+        <Card style={{ padding: '12px', borderRadius: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Avatar name={user.name} size={42} />
+            <div>
+              <div style={{ fontWeight: 600, fontSize: 14 }}>{user.name}</div>
+              <div style={{ fontSize: 12, color: '#666' }}>
+                {user.role === 'doctor' ? 'Veterinarian 🩺' : 'Pet Owner 🐶'}
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div className="sidebar-menu">
+        {items.map(item => (
+          <button
+            key={item.key}
+            className={`sidebar-btn ${active === item.key ? 'active' : ''}`}
+            onClick={() => {
+              if (item.key === 'profile') onProfileClick();
+            }}
+          >
+            {item.label}
+          </button>
+        ))}
+
+        <button className="sidebar-btn" onClick={onSignOut}>
+          🚪 Sign Out
+        </button>
+      </div>
+    </div>
+  );
+  }
+ 
+  function ProfilePanel({ user, petCount = 0, visitCount = 0, onClose, onSignOut }) {
+  return (
+    <div className="profile-panel">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700 }}>👤 Profile</h3>
+        <button
+          onClick={onClose}
+          style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#777' }}
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="profile-section">
+        <div className="profile-label">Name</div>
+        <div className="profile-value">{user.name}</div>
+      </div>
+
+      <div className="profile-section">
+        <div className="profile-label">Email</div>
+        <div className="profile-value">{user.email}</div>
+      </div>
+
+      <div className="profile-section">
+        <div className="profile-label">Role</div>
+        <div className="profile-value">
+          {user.role === 'doctor' ? 'Veterinarian 🩺' : 'Pet Owner 🐾'}
+        </div>
+      </div>
+
+      <div className="profile-section">
+        <div className="profile-label">Quick Stats</div>
+        <div className="profile-value">
+          {user.role === 'doctor'
+            ? `${visitCount} visit logs managed`
+            : `${petCount} pets registered`}
+        </div>
+      </div>
+
+      <div className="profile-section">
+        <div className="profile-label">Settings</div>
+        <div className="profile-value">Notifications, privacy, support</div>
+      </div>
+
+      <div style={{ marginTop: 16 }}>
+        <Btn onClick={onSignOut} style={{ width: '100%' }}>
+          🚪 Sign Out
+        </Btn>
+      </div>
+    </div>
+  );
+}
+function AuthScreen({ onLogin, data, setData, refreshData }) {
+  const [tab,setTab] = useState('login');
+  const [role,setRole] = useState('user');
+  const [form,setForm] = useState({name:'',email:'',password:'',specialization:''});
+  const [error,setError] = useState('');
+  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+
+  async function handleLogin() {
+    try {
+      const result = await api("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password
+        })
+      });
+
+      setError('');
+      await refreshData();
+      onLogin(result.user);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRegister() {
+    try {
+      if (!form.name || !form.email || !form.password) {
+        return setError('Please fill all required fields');
+      }
+
+      await api("/api/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          role: role,
+          specialization: form.specialization
+        })
+      });
+
+      setError('');
+      setTab('login');
+      alert('🎉 Account created successfully!');
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  return (
+    <div
+      style={{
+        minHeight:'100vh',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        padding:24,
+        background:'linear-gradient(135deg, #fff7fb 0%, #eef4ff 50%, #eefcf5 100%)',
+        position:'relative',
+        overflow:'hidden'
+      }}
+    >
+      <div className="floating-pet" style={{top:'8%',left:'8%'}}>🐶</div>
+      <div className="floating-pet small" style={{top:'18%',right:'10%'}}>🐱</div>
+      <div className="floating-pet" style={{bottom:'14%',left:'10%'}}>🦜</div>
+      <div className="floating-pet small" style={{bottom:'10%',right:'12%'}}>🐰</div>
+
+      <div style={{width:'100%',maxWidth:420}}>
+        <div style={{textAlign:'center',marginBottom:32}}>
+          <div className="pet-banner">
+            <div className="pet-bubble bubble-dog">🐶</div>
+            <div className="pet-bubble bubble-cat">🐱</div>
+            <div className="pet-bubble bubble-bird">🦜</div>
+            <div className="pet-bubble bubble-rabbit">🐰</div>
+            <div className="pet-bubble bubble-fish">🐠</div>
+          </div>
+
+          <div style={{fontSize:44,marginBottom:10}}>🐾✨</div>
+
+          <h1 className="cute-title" style={{fontSize:32,fontWeight:700,marginBottom:6}}>
+            PawCare
+          </h1>
+
+          <p style={{fontSize:15,color:'#5F5E5A'}}>
+            🐶 Pet management for loving owners, playful pets & caring vets 🩺
+          </p>
+
+          <div className="hero-strip">
+            Register your furry, feathery and finned friends with love 💖
+          </div>
+        </div>
+
+        <Card>
+          <div style={{display:'flex',background:'#f5f5f0',borderRadius:12,padding:4,marginBottom:20}}>
+            {['login','register'].map(t=>(
+              <button
+                key={t}
+                onClick={()=>{setTab(t);setError('');}}
+                style={{
+                  flex:1,padding:'9px',borderRadius:10,border:'none',
+                  background:tab===t?'#fff':'transparent',
+                  color:tab===t?'#534AB7':'#888',
+                  fontWeight:tab===t?600:400,cursor:'pointer',fontSize:14
+                }}
+              >
+                {t==='login'?'🔐 Sign in':'✨ Register'}
+              </button>
+            ))}
+          </div>
+
+          {tab==='register'&&(
+            <div style={{marginBottom:14}}>
+              <label style={{fontSize:12,color:'#666',display:'block',marginBottom:6,fontWeight:500}}>I am a</label>
+              <div style={{display:'flex',gap:8}}>
+                {['user','doctor'].map(r=>(
+                  <button
+                    key={r}
+                    onClick={()=>setRole(r)}
+                    style={{
+                      flex:1,padding:'8px',borderRadius:10,
+                      border:`1.5px solid ${role===r?'#534AB7':'#ddd'}`,
+                      background:role===r?'#EEEDFE':'transparent',
+                      color:role===r?'#534AB7':'#888',
+                      cursor:'pointer',fontSize:14,fontWeight:role===r?500:400
+                    }}
+                  >
+                    {r==='user'?'👤 Pet Owner':'🩺 Veterinarian'}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {tab==='register'&&<Input label="Full name *" placeholder="Jane Smith" value={form.name} onChange={e=>set('name',e.target.value)}/>}
+          <Input label="Email *" type="email" placeholder="you@example.com" value={form.email} onChange={e=>set('email',e.target.value)}/>
+          <Input label="Password *" type="password" placeholder="••••••••" value={form.password} onChange={e=>set('password',e.target.value)}/>
+          {tab==='register'&&role==='doctor'&&<Input label="Specialization" placeholder="e.g. Small Animals" value={form.specialization} onChange={e=>set('specialization',e.target.value)}/>}
+
+          {error&&<p style={{color:'#D85A30',fontSize:13,marginBottom:12}}>{error}</p>}
+
+          <Btn onClick={tab==='login'?handleLogin:handleRegister} style={{width:'100%'}}>
+            {tab==='login'?'🐾 Sign in':'🎉 Create account'}
+          </Btn>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function PetScreen({ user, data, setData, onNav, refreshData }) {
+  const [view,setView] = useState('list');
+  const [form,setForm] = useState({name:'',type:'Dog',breed:'',age:'',feedingSchedule:'',medicineReminder:''});
+  const [error,setError] = useState('');
+  const [showProfile, setShowProfile] = useState(false);
+
+  const myPets = data.pets.filter(p=>p.ownerId===user.id);
+  const myVisits = data.vetVisits.filter(v => myPets.some(p => p.id === v.petId));
+  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+
+  async function savePet() {
+    try {
+      if (!form.name || !form.breed || !form.age) {
+        return setError('Name, breed and age are required');
+      }
+
+      await api("/api/pets", {
+        method: "POST",
+        body: JSON.stringify({
+          ownerId: user.id,
+          name: form.name,
+          type: form.type,
+          breed: form.breed,
+          age: form.age,
+          feedingSchedule: form.feedingSchedule,
+          medicineReminder: form.medicineReminder
+        })
+      });
+
+      setForm({
+        name: '',
+        type: 'Dog',
+        breed: '',
+        age: '',
+        feedingSchedule: '',
+        medicineReminder: ''
+      });
+
+      setError('');
+      await refreshData();
+      setView('list');
+      alert('🐾 Pet profile created successfully!');
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function deletePet(id) {
+    try {
+      await api(`/api/pets/${id}`, { method: "DELETE" });
+      await refreshData();
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  const petTypeColors = {
+    Dog:['#B5D4F4','#185FA5'],
+    Cat:['#F5C4B3','#993C1D'],
+    Bird:['#C0DD97','#3B6D11'],
+    Rabbit:['#F4C0D1','#993556'],
+    Fish:['#9FE1CB','#0F6E56'],
+    Hamster:['#FAC775','#854F0B'],
+    Other:['#D3D1C7','#5F5E5A']
+  };
+
+  return (
+    <div className="page-shell sidebar-layout">
+      <Sidebar
+        user={user}
+        active="pets"
+        onProfileClick={() => setShowProfile(true)}
+        onSignOut={() => onNav('logout')}
+      />
+
+      <div className="main-content">
+        <div style={{
+          background:'rgba(255,255,255,0.65)',
+          borderBottom:'1px solid rgba(255,255,255,0.45)',
+          padding:'14px 20px',
+          display:'flex',
+          alignItems:'center',
+          justifyContent:'space-between',
+          position:'sticky',
+          top:0,
+          zIndex:10,
+          backdropFilter:'blur(14px)',
+          WebkitBackdropFilter:'blur(14px)',
+          boxShadow:'0 8px 20px rgba(0,0,0,0.05)'
+        }}>
+          <div>
+            <h2 className="cute-title" style={{fontSize:22,fontWeight:700}}>🐾 My Pets</h2>
+            <p style={{fontSize:13,color:'#666'}}>{myPets.length} registered</p>
+          </div>
+
+          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            <div className="profile-chip" onClick={() => setShowProfile(true)}>
+              <Avatar name={user.name} size={32}/>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>{user.name}</div>
+                <div style={{ fontSize: 11, color: '#666' }}>
+                  {user.role === 'doctor' ? 'Vet' : 'Owner'}
+                </div>
+              </div>
+            </div>
+
+            <Btn onClick={()=>setView(view==='add'?'list':'add')} variant={view==='add'?'secondary':'primary'}>
+              {view==='add'?'Cancel':'➕ Add pet'}
+            </Btn>
+          </div>
+        </div>
+
+        <div style={{maxWidth:900,margin:'0 auto',padding:20}}>
+          {view==='add'&&(
+            <Card style={{marginBottom:20}}>
+              <h3 className="cute-title" style={{fontSize:17,fontWeight:700,marginBottom:16}}>🐶 New Pet Profile</h3>
+
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px'}}>
+                <Input label="Pet name *" placeholder="Buddy" value={form.name} onChange={e=>set('name',e.target.value)}/>
+                <Select label="Type" options={PET_TYPES.map(t=>({value:t,label:t}))} value={form.type} onChange={e=>set('type',e.target.value)}/>
+                <Input label="Breed *" placeholder="Golden Retriever" value={form.breed} onChange={e=>set('breed',e.target.value)}/>
+                <Input label="Age (years) *" type="number" min="0" placeholder="3" value={form.age} onChange={e=>set('age',e.target.value)}/>
+              </div>
+
+              <Input label="Feeding schedule" placeholder="e.g. 8am & 6pm, 2 cups kibble" value={form.feedingSchedule} onChange={e=>set('feedingSchedule',e.target.value)}/>
+              <Input label="Medicine reminders" placeholder="e.g. Flea tablet every month" value={form.medicineReminder} onChange={e=>set('medicineReminder',e.target.value)}/>
+
+              {error&&<p style={{color:'#D85A30',fontSize:13,marginBottom:10}}>{error}</p>}
+              <Btn onClick={savePet}>💖 Save pet</Btn>
+            </Card>
+          )}
+
+          {myPets.length===0&&view!=='add'?(
+            <Card style={{textAlign:'center',padding:'40px 20px'}}>
+              <div style={{fontSize:48,marginBottom:12}}>🐶</div>
+              <p style={{fontWeight:500,marginBottom:6}}>No pets yet</p>
+              <p style={{fontSize:13,color:'#666'}}>Add your first pet to get started</p>
+            </Card>
+          ):(
+            <div style={{display:'flex',flexDirection:'column',gap:12}}>
+              {myPets.map(pet=>{
+                const [bg,fg] = petTypeColors[pet.type]||petTypeColors.Other;
+                const visits = data.vetVisits.filter(v=>v.petId===pet.id);
+
+                return (
+                  <Card key={pet.id}>
+                    <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:12}}>
+                      <div style={{display:'flex',gap:14,flex:1}}>
+                        <Avatar name={pet.name} size={48} bg={bg} color={fg}/>
+                        <div style={{flex:1}}>
+                          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}>
+                            <span style={{fontWeight:600,fontSize:16}}>{pet.name}</span>
+                            <Badge bg={bg} color={fg}>{pet.type}</Badge>
+                          </div>
+                          <p style={{fontSize:13,color:'#666',marginBottom:8}}>{pet.breed} • {pet.age} yr{pet.age!=1?'s':''}</p>
+                          <div style={{display:'flex',gap:16,fontSize:12,flexWrap:'wrap'}}>
+                            {pet.feedingSchedule&&<span style={{color:'#666'}}>🍽 {pet.feedingSchedule}</span>}
+                            {pet.medicineReminder&&<span style={{color:'#666'}}>💊 {pet.medicineReminder}</span>}
+                          </div>
+                          {visits.length>0&&<p style={{fontSize:12,color:'#0F6E56',marginTop:6}}>✓ {visits.length} vet visit{visits.length!==1?'s':''} logged</p>}
+                        </div>
+                      </div>
+
+                      <div style={{display:'flex',gap:8}}>
+                        <Btn variant="ghost" onClick={()=>onNav('vet',pet)} style={{padding:'6px 12px',fontSize:12}}>🩺 Vet visits</Btn>
+                        <Btn variant="secondary" onClick={()=>deletePet(pet.id)} style={{padding:'6px 10px',fontSize:12}}>✕</Btn>
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {showProfile && (
+          <ProfilePanel
+            user={user}
+            petCount={myPets.length}
+            visitCount={myVisits.length}
+            onClose={() => setShowProfile(false)}
+            onSignOut={() => onNav('logout')}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+function VetScreen({ user, pet, data, setData, onBack, refreshData, onNav }) {
+  const [form,setForm] = useState({
+    date:new Date().toISOString().slice(0,10),
+    reason:'',
+    diagnosis:'',
+    treatment:'',
+    remarks:'',
+    doctor:user.role==='doctor'?user.name:''
+  });
+  const [adding,setAdding] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
+  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  const visits = data.vetVisits.filter(v=>v.petId===pet.id).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const myVisitCount = data.vetVisits.filter(v => v.loggedBy === user.id).length;
+
+  async function saveVisit() {
+    try {
+      if (!form.reason) return;
+
+      await api("/api/vet-visits", {
+        method: "POST",
+        body: JSON.stringify({
+          petId: pet.id,
+          loggedBy: user.id,
+          loggedByName: user.name,
+          date: form.date,
+          reason: form.reason,
+          diagnosis: form.diagnosis,
+          treatment: form.treatment,
+          remarks: form.remarks,
+          doctor: form.doctor
+        })
+      });
+
+      setForm({
+        date: new Date().toISOString().slice(0, 10),
+        reason: '',
+        diagnosis: '',
+        treatment: '',
+        remarks: '',
+        doctor: user.role === 'doctor' ? user.name : ''
+      });
+
+      await refreshData();
+      setAdding(false);
+      alert('🩺 Vet visit saved successfully!');
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  async function deleteVisit(id) {
+    try {
+      await api(`/api/vet-visits/${id}`, { method: "DELETE" });
+      await refreshData();
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  return (
+    <div className="page-shell sidebar-layout">
+      <Sidebar
+        user={user}
+        active="dashboard"
+        onProfileClick={() => setShowProfile(true)}
+        onSignOut={() => onNav('logout')}
+      />
+
+      <div className="main-content">
+        <div style={{
+          background:'rgba(255,255,255,0.65)',
+          borderBottom:'1px solid rgba(255,255,255,0.45)',
+          padding:'14px 20px',
+          display:'flex',
+          alignItems:'center',
+          gap:12,
+          position:'sticky',
+          top:0,
+          zIndex:10,
+          backdropFilter:'blur(14px)',
+          WebkitBackdropFilter:'blur(14px)',
+          boxShadow:'0 8px 20px rgba(0,0,0,0.05)'
+        }}>
+          <button onClick={onBack} style={{background:'none',border:'none',cursor:'pointer',color:'#534AB7',fontSize:20,lineHeight:1}}>←</button>
+          <Avatar name={pet.name} size={36} bg="#B5D4F4" color="#185FA5"/>
+          <div>
+            <p style={{fontWeight:600,fontSize:15}}>{pet.name}</p>
+            <p style={{fontSize:12,color:'#666'}}>{pet.breed} · {pet.type}</p>
+          </div>
+
+          <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:12}}>
+            <div className="profile-chip" onClick={() => setShowProfile(true)}>
+              <Avatar name={user.name} size={32}/>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>{user.name}</div>
+                <div style={{ fontSize: 11, color: '#666' }}>
+                  {user.role === 'doctor' ? 'Vet' : 'Owner'}
+                </div>
+              </div>
+            </div>
+
+            <Btn onClick={()=>setAdding(!adding)} variant={adding?'secondary':'primary'} style={{padding:'7px 14px',fontSize:13}}>
+              {adding?'Cancel':'➕ Log visit'}
+            </Btn>
+          </div>
+        </div>
+
+        <div style={{maxWidth:900,margin:'0 auto',padding:20}}>
+          {adding&&(
+            <Card style={{marginBottom:20}}>
+              <h3 className="cute-title" style={{fontSize:17,fontWeight:700,marginBottom:16}}>🩺 New Vet Visit</h3>
+
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px'}}>
+                <Input label="Date" type="date" value={form.date} onChange={e=>set('date',e.target.value)}/>
+                <Input label="Doctor name" placeholder="Dr. Priya Sharma" value={form.doctor} onChange={e=>set('doctor',e.target.value)}/>
+              </div>
+
+              <Input label="Reason for visit *" placeholder="Annual checkup / Vaccination / Illness..." value={form.reason} onChange={e=>set('reason',e.target.value)}/>
+              <Input label="Diagnosis" placeholder="e.g. Mild ear infection" value={form.diagnosis} onChange={e=>set('diagnosis',e.target.value)}/>
+              <Input label="Treatment / Prescription" placeholder="e.g. Ear drops 2x daily for 7 days" value={form.treatment} onChange={e=>set('treatment',e.target.value)}/>
+
+              <div style={{marginBottom:16}}>
+                <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>Remarks / Notes</label>
+                <textarea
+                  value={form.remarks}
+                  onChange={e=>set('remarks',e.target.value)}
+                  placeholder="Any additional notes or follow-up instructions..."
+                  rows={3}
+                  style={{
+                    fontFamily:'inherit',fontSize:14,padding:'10px 12px',
+                    border:'1px solid rgba(180,180,180,0.45)',borderRadius:12,
+                    background:'rgba(255,255,255,0.75)',color:'#111',width:'100%',
+                    outline:'none',resize:'vertical'
+                  }}
+                />
+              </div>
+
+              <Btn onClick={saveVisit} disabled={!form.reason}>💜 Save visit record</Btn>
+            </Card>
+          )}
+
+          {visits.length===0&&!adding?(
+            <Card style={{textAlign:'center',padding:'40px 20px'}}>
+              <div style={{fontSize:44,marginBottom:12}}>🩺</div>
+              <p style={{fontWeight:500,marginBottom:6}}>No vet visits yet</p>
+              <p style={{fontSize:13,color:'#666'}}>Log the first visit for {pet.name}</p>
+            </Card>
+          ):(
+            <div>
+              <p style={{fontSize:13,color:'#666',marginBottom:12}}>{visits.length} visit record{visits.length!==1?'s':''}</p>
+              <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                {visits.map(v=>(
+                  <Card key={v.id}>
+                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
+                      <div>
+                        <span style={{fontWeight:600,fontSize:15}}>{v.reason}</span>
+                        <p style={{fontSize:12,color:'#666',marginTop:2}}>
+                          {new Date(v.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+                          {v.doctor&&` · ${v.doctor}`}
+                        </p>
+                      </div>
+                      <button onClick={()=>deleteVisit(v.id)} style={{background:'none',border:'none',cursor:'pointer',color:'#999',fontSize:18,lineHeight:1,padding:4}}>✕</button>
+                    </div>
+
+                    <div style={{display:'flex',flexDirection:'column',gap:8}}>
+                      {v.diagnosis&&(
+                        <div style={{background:'#f5f5f0',borderRadius:10,padding:'8px 12px'}}>
+                          <p style={{fontSize:11,color:'#888',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em'}}>Diagnosis</p>
+                          <p style={{fontSize:13}}>{v.diagnosis}</p>
+                        </div>
+                      )}
+
+                      {v.treatment&&(
+                        <div style={{background:'#E1F5EE',borderRadius:10,padding:'8px 12px'}}>
+                          <p style={{fontSize:11,color:'#0F6E56',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em'}}>Treatment</p>
+                          <p style={{fontSize:13,color:'#085041'}}>{v.treatment}</p>
+                        </div>
+                      )}
+
+                      {v.remarks&&(
+                        <div style={{borderLeft:'3px solid #AFA9EC',paddingLeft:12}}>
+                          <p style={{fontSize:12,color:'#888',marginBottom:2}}>Remarks</p>
+                          <p style={{fontSize:13}}>{v.remarks}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    <p style={{fontSize:11,color:'#999',marginTop:10}}>Logged by {v.loggedByName}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {showProfile && (
+          <ProfilePanel
+            user={user}
+            petCount={0}
+            visitCount={myVisitCount}
+            onClose={() => setShowProfile(false)}
+            onSignOut={() => onNav('logout')}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [data, setData] = React.useState({ users: [], pets: [], vetVisits: [] });
+  const [screen, setScreen] = React.useState('auth');
+  const [user, setUser] = React.useState(null);
+  const [selectedPet, setSelectedPet] = React.useState(null);
+
+  async function refreshData() {
+    try {
+      const freshData = await loadData();
+      setData(freshData);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  React.useEffect(() => {
+    refreshData();
+  }, []);
+
+  function handleLogin(u) {
+    setUser(u);
+    setScreen('pets');
+    refreshData();
+  }
+
+  function handleNav(dest, pet = null) {
+    if (dest === 'logout') {
+      setUser(null);
+      setScreen('auth');
+      setSelectedPet(null);
+    } else if (dest === 'vet') {
+      setSelectedPet(pet);
+      setScreen('vet');
+    } else if (dest === 'pets') {
+      setSelectedPet(null);
+      setScreen('pets');
+      refreshData();
+    }
+  }
+
+  if (screen === 'auth') {
+    return (
+      <AuthScreen
+        onLogin={handleLogin}
+        data={data}
+        setData={setData}
+        refreshData={refreshData}
+      />
+    );
+  }
+
+  if (screen === 'pets') {
+    return (
+      <PetScreen
+        user={user}
+        data={data}
+        setData={setData}
+        onNav={handleNav}
+        refreshData={refreshData}
+      />
+    );
+  }
+
+  if (screen === 'vet' && selectedPet) {
+  return (
+    <VetScreen
+      user={user}
+      pet={selectedPet}
+      data={data}
+      setData={setData}
+      onBack={() => handleNav('pets')}
+      refreshData={refreshData}
+      onNav={handleNav}
+    />
+  );
+}
+  return null;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+{% endraw %}
+</body>
+</html>
