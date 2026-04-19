@@ -133,132 +133,322 @@
       radial-gradient(circle at top left, rgba(255, 214, 220, 0.35), transparent 25%),
       radial-gradient(circle at top right, rgba(181, 212, 244, 0.30), transparent 25%),
       linear-gradient(135deg, #fffaf6 0%, #f7f4ff 50%, #eefaf4 100%);
-  .sidebar-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 240px;
-  padding: 20px 16px;
-  background: rgba(255,255,255,0.62);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-right: 1px solid rgba(255,255,255,0.5);
-  box-shadow: 8px 0 20px rgba(0,0,0,0.04);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-}
-
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.sidebar-btn {
-  width: 100%;
-  text-align: left;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 14px;
-  background: transparent;
-  color: #333;
-  font-size: 14px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.sidebar-btn:hover {
-  background: rgba(83, 74, 183, 0.08);
-}
-
-.sidebar-btn.active {
-  background: linear-gradient(135deg, rgba(83,74,183,0.14), rgba(175,169,236,0.18));
-  color: #534AB7;
-  font-weight: 600;
-}
-
-.main-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.profile-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.45);
-  cursor: pointer;
-}
-
-.profile-panel {
-  position: fixed;
-  top: 80px;
-  right: 24px;
-  width: 320px;
-  z-index: 999;
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 20px;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-  padding: 18px;
-}
-
-.profile-section {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-.profile-section:last-child {
-  border-bottom: none;
-}
-
-.profile-label {
-  font-size: 11px;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
-}
-
-.profile-value {
-  font-size: 14px;
-  color: #222;
-  font-weight: 500;
-}
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 92px;
-    padding: 18px 10px;
   }
 
-  .sidebar-brand span {
-    display: none;
+  .sidebar-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 250px;
+    padding: 20px 16px;
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 8px 0 20px rgba(0,0,0,0.04);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .sidebar-btn {
-    font-size: 12px;
-    padding: 10px;
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 14px;
+    background: transparent;
+    color: #333;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
-}
+
+  .sidebar-btn:hover {
+    background: rgba(83, 74, 183, 0.08);
+  }
+
+  .sidebar-btn.active {
+    background: linear-gradient(135deg, rgba(83,74,183,0.14), rgba(175,169,236,0.18));
+    color: #534AB7;
+    font-weight: 600;
+  }
+
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.45);
+    cursor: pointer;
+  }
+
+  .profile-panel {
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    width: 330px;
+    z-index: 999;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+    padding: 18px;
+  }
+
+  .profile-section {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .profile-section:last-child {
+    border-bottom: none;
+  }
+
+  .profile-label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .profile-value {
+    font-size: 14px;
+    color: #222;
+    font-weight: 500;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .stat-card {
+    padding: 16px;
+    border-radius: 18px;
+    color: #222;
+    min-height: 110px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+
+  .stat-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #555;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .mini-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mini-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.45);
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .chip-btn {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(120,120,120,0.18);
+    background: rgba(255,255,255,0.75);
+    font-size: 13px;
+  }
+
+  .chip-btn.active {
+    background: #534AB7;
+    color: white;
+    border-color: #534AB7;
+  }
+
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .muted {
+    color: #666;
+    font-size: 13px;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .tiny-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(83,74,183,0.10);
+    color: #534AB7;
+  }
+
+  .toast-wrap {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+  }
+
+  .toast {
+    min-width: 270px;
+    max-width: 340px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    color: #222;
+    border: 1px solid rgba(255,255,255,0.65);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    backdrop-filter: blur(12px);
+    animation: slideIn 0.3s ease;
+  }
+
+  .toast.success {
+    background: linear-gradient(135deg, rgba(225,245,238,0.95), rgba(221,246,255,0.93));
+  }
+
+  .toast.info {
+    background: linear-gradient(135deg, rgba(238,237,254,0.96), rgba(244,224,255,0.93));
+  }
+
+  .toast.warning {
+    background: linear-gradient(135deg, rgba(255,240,216,0.95), rgba(255,224,235,0.92));
+  }
+
+  @keyframes slideIn {
+    from { transform: translateX(30px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+    padding: 20px;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 22px;
+    padding: 20px;
+  }
+
+  .star-row {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .star-btn {
+    font-size: 24px;
+    background: transparent;
+    border: none;
+  }
+
+  @media (max-width: 1100px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      width: 94px;
+      padding: 18px 10px;
+    }
+
+    .sidebar-brand span:last-child {
+      display: none;
+    }
+
+    .sidebar-btn {
+      font-size: 12px;
+      padding: 10px;
+    }
+
+    .card-grid-3,
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
@@ -267,7 +457,7 @@
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState } = React;
+const { useState, useMemo, useEffect } = React;
 
 async function api(url, options = {}) {
   const response = await fetch(url, {
@@ -285,11 +475,136 @@ async function api(url, options = {}) {
 }
 
 async function loadData() {
-  const result = await api("/api/dashboard-data");
-  return result;
+  return await api("/api/dashboard-data");
 }
 
-const PET_TYPES = ['Dog','Cat','Bird','Rabbit','Fish','Hamster','Other'];
+const PET_TYPES = ['Dog','Cat','Bird','Rabbit','Fish','Hamster','Parrot','Turtle','Other'];
+
+const ARTICLES = [
+  {
+    id: 1,
+    animal: 'Dog',
+    emoji: '🐶',
+    title: 'Daily Dog Care Routine',
+    summary: 'A simple guide on feeding, walking, grooming and keeping your dog active every day.',
+    category: 'Routine',
+    readTime: '4 min read',
+    bg: 'linear-gradient(135deg, #FFF0D8, #FFE3B3)'
+  },
+  {
+    id: 2,
+    animal: 'Cat',
+    emoji: '🐱',
+    title: 'Indoor Cat Enrichment Ideas',
+    summary: 'Fun play activities and comfort tips to keep indoor cats happy and healthy.',
+    category: 'Lifestyle',
+    readTime: '5 min read',
+    bg: 'linear-gradient(135deg, #FFE2EC, #FFD1E1)'
+  },
+  {
+    id: 3,
+    animal: 'Bird',
+    emoji: '🦜',
+    title: 'Bird Care Basics at Home',
+    summary: 'Learn about cage setup, diet, stimulation and safe handling for pet birds.',
+    category: 'Care',
+    readTime: '6 min read',
+    bg: 'linear-gradient(135deg, #DDF6FF, #C9EDFF)'
+  },
+  {
+    id: 4,
+    animal: 'Rabbit',
+    emoji: '🐰',
+    title: 'Rabbit Diet Essentials',
+    summary: 'A beginner-friendly note on hay, greens, fresh water and safe treats.',
+    category: 'Nutrition',
+    readTime: '4 min read',
+    bg: 'linear-gradient(135deg, #F2E7FF, #E4D6FF)'
+  },
+  {
+    id: 5,
+    animal: 'Fish',
+    emoji: '🐠',
+    title: 'Aquarium Cleaning Basics',
+    summary: 'Tips on tank hygiene, feeding schedules and maintaining water quality.',
+    category: 'Care',
+    readTime: '5 min read',
+    bg: 'linear-gradient(135deg, #DFFFF2, #CBF7E5)'
+  },
+  {
+    id: 6,
+    animal: 'Parrot',
+    emoji: '🦜',
+    title: 'Parrot Bonding Tips',
+    summary: 'Build trust with your parrot through daily interaction and playful routines.',
+    category: 'Training',
+    readTime: '7 min read',
+    bg: 'linear-gradient(135deg, #DDF6FF, #D5FFE8)'
+  }
+];
+
+const PLACES = [
+  {
+    id: 1,
+    type: 'Vet Clinic',
+    city: 'Bengaluru',
+    name: 'Happy Tails Vet Clinic',
+    area: 'Indiranagar',
+    phone: '+91 98765 11111',
+    timing: '9:00 AM - 8:00 PM',
+    services: ['Vaccination', 'General Checkup', 'Emergency']
+  },
+  {
+    id: 2,
+    type: 'Pet Shop',
+    city: 'Bengaluru',
+    name: 'PawMart Essentials',
+    area: 'Jayanagar',
+    phone: '+91 98765 22222',
+    timing: '10:00 AM - 9:00 PM',
+    services: ['Food', 'Toys', 'Grooming Supplies']
+  },
+  {
+    id: 3,
+    type: 'Vet Clinic',
+    city: 'Bengaluru',
+    name: 'Feather & Fur Care Center',
+    area: 'Whitefield',
+    phone: '+91 98765 33333',
+    timing: '8:30 AM - 7:30 PM',
+    services: ['Bird Care', 'Rabbit Care', 'Dental']
+  },
+  {
+    id: 4,
+    type: 'Pet Shop',
+    city: 'Bengaluru',
+    name: 'Pet Basket Hub',
+    area: 'Koramangala',
+    phone: '+91 98765 44444',
+    timing: '10:00 AM - 8:30 PM',
+    services: ['Aquarium Items', 'Beds', 'Accessories']
+  },
+  {
+    id: 5,
+    type: 'Vet Clinic',
+    city: 'Mysuru',
+    name: 'CarePaws Animal Clinic',
+    area: 'VV Mohalla',
+    phone: '+91 98765 55555',
+    timing: '9:00 AM - 7:00 PM',
+    services: ['Checkup', 'Surgery', 'Vaccination']
+  },
+  {
+    id: 6,
+    type: 'Pet Shop',
+    city: 'Mysuru',
+    name: 'TailWag Pet Store',
+    area: 'Gokulam',
+    phone: '+91 98765 66666',
+    timing: '10:30 AM - 8:00 PM',
+    services: ['Food', 'Treats', 'Collars']
+  }
+];
 
 function Avatar({ name, size=40, bg='#EEEDFE', color='#534AB7' }) {
   const initials = name ? name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) : '?';
@@ -318,14 +633,7 @@ function Badge({ children, color='#534AB7', bg='#EEEDFE' }) {
 
 function Card({ children, style={} }) {
   return (
-    <div
-      className="glass-card cute-pop"
-      style={{
-        borderRadius: 18,
-        padding: '1rem 1.25rem',
-        ...style
-      }}
-    >
+    <div className="glass-card cute-pop" style={{ borderRadius: 18, padding: '1rem 1.25rem', ...style }}>
       {children}
     </div>
   );
@@ -334,11 +642,7 @@ function Card({ children, style={} }) {
 function Input({ label, ...props }) {
   return (
     <div style={{marginBottom:14}}>
-      {label && (
-        <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>
-          {label}
-        </label>
-      )}
+      {label && <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>{label}</label>}
       <input {...props}/>
     </div>
   );
@@ -347,11 +651,7 @@ function Input({ label, ...props }) {
 function Select({ label, options, ...props }) {
   return (
     <div style={{marginBottom:14}}>
-      {label && (
-        <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>
-          {label}
-        </label>
-      )}
+      {label && <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>{label}</label>}
       <select
         {...props}
         style={{
@@ -395,16 +695,34 @@ function Btn({ children, onClick, variant='primary', style={}, disabled=false })
   return <button onClick={onClick} disabled={disabled} style={{...base,...variants[variant]}}>{children}</button>;
 }
 
-function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
+function Toasts({ items }) {
+  return (
+    <div className="toast-wrap">
+      {items.map(t => (
+        <div key={t.id} className={`toast ${t.type || 'info'}`}>
+          <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.title}</div>
+          <div style={{ fontSize: 13, color: '#555' }}>{t.message}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Sidebar({ user, active, onNavigate, onProfileClick, onSignOut }) {
   const items = user?.role === 'doctor'
     ? [
         { key: 'dashboard', label: '🏠 Dashboard' },
         { key: 'patients', label: '🩺 Patients' },
+        { key: 'appointments', label: '📅 Appointments' },
+        { key: 'places', label: '📍 Places' },
         { key: 'profile', label: '👤 Profile' }
       ]
     : [
         { key: 'dashboard', label: '🏠 Dashboard' },
         { key: 'pets', label: '🐾 My Pets' },
+        { key: 'appointments', label: '📅 Appointments' },
+        { key: 'articles', label: '📚 Articles' },
+        { key: 'places', label: '📍 Places' },
         { key: 'profile', label: '👤 Profile' }
       ];
 
@@ -434,9 +752,7 @@ function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
           <button
             key={item.key}
             className={`sidebar-btn ${active === item.key ? 'active' : ''}`}
-            onClick={() => {
-              if (item.key === 'profile') onProfileClick();
-            }}
+            onClick={() => item.key === 'profile' ? onProfileClick() : onNavigate(item.key)}
           >
             {item.label}
           </button>
@@ -448,17 +764,14 @@ function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
       </div>
     </div>
   );
-  }
- 
-  function ProfilePanel({ user, petCount = 0, visitCount = 0, onClose, onSignOut }) {
+}
+
+function ProfilePanel({ user, petCount = 0, visitCount = 0, appointmentCount = 0, onClose, onSignOut, avgRating }) {
   return (
     <div className="profile-panel">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
         <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700 }}>👤 Profile</h3>
-        <button
-          onClick={onClose}
-          style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#777' }}
-        >
+        <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#777' }}>
           ✕
         </button>
       </div>
@@ -475,19 +788,24 @@ function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
 
       <div className="profile-section">
         <div className="profile-label">Role</div>
-        <div className="profile-value">
-          {user.role === 'doctor' ? 'Veterinarian 🩺' : 'Pet Owner 🐾'}
-        </div>
+        <div className="profile-value">{user.role === 'doctor' ? 'Veterinarian 🩺' : 'Pet Owner 🐾'}</div>
       </div>
 
       <div className="profile-section">
         <div className="profile-label">Quick Stats</div>
         <div className="profile-value">
           {user.role === 'doctor'
-            ? `${visitCount} visit logs managed`
-            : `${petCount} pets registered`}
+            ? `${visitCount} visit logs • ${appointmentCount} appointments`
+            : `${petCount} pets • ${appointmentCount} appointments`}
         </div>
       </div>
+
+      {user.role === 'doctor' && (
+        <div className="profile-section">
+          <div className="profile-label">Average Rating</div>
+          <div className="profile-value">{avgRating ? `${avgRating.toFixed(1)} ⭐` : 'No ratings yet'}</div>
+        </div>
+      )}
 
       <div className="profile-section">
         <div className="profile-label">Settings</div>
@@ -502,7 +820,429 @@ function Sidebar({ user, active = 'dashboard', onProfileClick, onSignOut }) {
     </div>
   );
 }
-function AuthScreen({ onLogin, data, setData, refreshData }) {
+
+function RatingModal({ pet, ownerId, doctors, onClose, onSubmit }) {
+  const assignedVet = doctors.find(d => String(d.id) === String(pet.vetId));
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState('');
+
+  return (
+    <div className="modal-backdrop">
+      <Card className="modal-card" style={{ maxWidth: 520 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 12 }}>
+          <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700 }}>⭐ Rate Your Vet</h3>
+          <button onClick={onClose} style={{ background:'none', border:'none', fontSize:18 }}>✕</button>
+        </div>
+
+        <p className="muted" style={{ marginBottom: 10 }}>
+          Pet: <strong>{pet.name}</strong> {assignedVet ? `• Vet: ${assignedVet.name}` : ''}
+        </p>
+
+        <div className="star-row">
+          {[1,2,3,4,5].map(star => (
+            <button
+              key={star}
+              className="star-btn"
+              onClick={() => setRating(star)}
+            >
+              {star <= rating ? '⭐' : '☆'}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>Comment</label>
+          <textarea
+            rows={4}
+            placeholder="Share your experience..."
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+          />
+        </div>
+
+        <div style={{ display:'flex', gap:10, justifyContent:'flex-end' }}>
+          <Btn variant="secondary" onClick={onClose}>Cancel</Btn>
+          <Btn onClick={() => onSubmit({ petId: pet.id, ownerId, vetId: pet.vetId, rating, comment })}>Submit Rating</Btn>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function AppointmentModal({ pets, doctors, ownerId, onClose, onSubmit }) {
+  const assignedPets = pets.filter(p => p.vetId);
+  const [form, setForm] = useState({
+    petId: assignedPets[0]?.id ? String(assignedPets[0].id) : '',
+    date: '',
+    time: '',
+    notes: ''
+  });
+
+  const selectedPet = assignedPets.find(p => String(p.id) === form.petId);
+  const selectedVet = doctors.find(d => String(d.id) === String(selectedPet?.vetId));
+
+  function setField(k, v) {
+    setForm(prev => ({ ...prev, [k]: v }));
+  }
+
+  return (
+    <div className="modal-backdrop">
+      <Card className="modal-card" style={{ maxWidth: 560 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 12 }}>
+          <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700 }}>📅 Book Appointment</h3>
+          <button onClick={onClose} style={{ background:'none', border:'none', fontSize:18 }}>✕</button>
+        </div>
+
+        {assignedPets.length === 0 ? (
+          <>
+            <p className="muted">You need a pet with an assigned veterinarian before booking an appointment.</p>
+            <div style={{ marginTop: 16, display:'flex', justifyContent:'flex-end' }}>
+              <Btn onClick={onClose}>Close</Btn>
+            </div>
+          </>
+        ) : (
+          <>
+            <Select
+              label="Select Pet"
+              value={form.petId}
+              onChange={e => setField('petId', e.target.value)}
+              options={assignedPets.map(p => ({ value: String(p.id), label: `${p.name} (${p.type})` }))}
+            />
+
+            <Input label="Date" type="date" value={form.date} onChange={e => setField('date', e.target.value)} />
+            <Input label="Time" type="time" value={form.time} onChange={e => setField('time', e.target.value)} />
+
+            <div style={{ marginBottom: 14 }}>
+              <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>Notes</label>
+              <textarea
+                rows={3}
+                placeholder="Reason for appointment..."
+                value={form.notes}
+                onChange={e => setField('notes', e.target.value)}
+              />
+            </div>
+
+            <p className="muted" style={{ marginBottom: 16 }}>
+              Assigned Vet: <strong>{selectedVet ? selectedVet.name : 'Not assigned'}</strong>
+            </p>
+
+            <div style={{ display:'flex', gap:10, justifyContent:'flex-end' }}>
+              <Btn variant="secondary" onClick={onClose}>Cancel</Btn>
+              <Btn
+                onClick={() => onSubmit({
+                  petId: Number(form.petId),
+                  ownerId,
+                  vetId: selectedPet?.vetId,
+                  date: form.date,
+                  time: form.time,
+                  notes: form.notes
+                })}
+                disabled={!form.petId || !form.date || !form.time || !selectedPet?.vetId}
+              >
+                Book
+              </Btn>
+            </div>
+          </>
+        )}
+      </Card>
+    </div>
+  );
+}
+
+function DashboardSection({ user, myPets, assignedPatients, myVisits, myAppointments, ratings, onQuickAddPet, onBookAppointment, onGoArticles, onGoPlaces, onOpenProfile }) {
+  const dueMedicines = myPets.filter(p => p.medicineReminder && p.medicineReminder.trim()).length;
+  const feedingPlans = myPets.filter(p => p.feedingSchedule && p.feedingSchedule.trim()).length;
+  const avgDoctorRating = ratings.length ? ratings.reduce((a, r) => a + r.rating, 0) / ratings.length : 0;
+
+  const stats = user.role === 'doctor'
+    ? [
+        { icon: '🩺', value: assignedPatients.length, label: 'Assigned Patients', bg: 'linear-gradient(135deg, #FFF0D8, #FFE3B3)' },
+        { icon: '📋', value: myVisits.length, label: 'Visit Logs', bg: 'linear-gradient(135deg, #FFE2EC, #FFD1E1)' },
+        { icon: '📅', value: myAppointments.length, label: 'Appointments', bg: 'linear-gradient(135deg, #DFFFF2, #CBF7E5)' },
+        { icon: '⭐', value: avgDoctorRating ? avgDoctorRating.toFixed(1) : '—', label: 'Avg Rating', bg: 'linear-gradient(135deg, #DDF6FF, #C9EDFF)' }
+      ]
+    : [
+        { icon: '🐾', value: myPets.length, label: 'My Pets', bg: 'linear-gradient(135deg, #FFF0D8, #FFE3B3)' },
+        { icon: '💊', value: dueMedicines, label: 'Medicine Plans', bg: 'linear-gradient(135deg, #FFE2EC, #FFD1E1)' },
+        { icon: '🍽️', value: feedingPlans, label: 'Feeding Schedules', bg: 'linear-gradient(135deg, #DFFFF2, #CBF7E5)' },
+        { icon: '📅', value: myAppointments.length, label: 'Appointments', bg: 'linear-gradient(135deg, #DDF6FF, #C9EDFF)' }
+      ];
+
+  const suggestions = user.role === 'doctor'
+    ? [
+        'Review today’s scheduled appointments and update their status.',
+        'Check which assigned patients have no recent visit logs.',
+        'Monitor owner feedback from the rating section.',
+        'Use the Places tab to suggest nearby pet shops to owners.'
+      ]
+    : [
+        myPets.some(p => !p.vetId) ? 'Assign a veterinarian to every pet for better follow-up care.' : 'All your pets have assigned vets. Great job!',
+        feedingPlans < myPets.length ? 'Some pets do not have feeding schedules yet.' : 'All your pets have feeding schedules set.',
+        dueMedicines ? 'You already use medicine reminders for some pets. Keep them updated.' : 'Add medicine reminders to avoid missing doses.',
+        myAppointments.length === 0 ? 'Book a vet appointment if a pet needs consultation.' : 'You already have appointments tracked inside the app.'
+      ];
+
+  return (
+    <div>
+      <div className="stats-grid">
+        {stats.map((s, idx) => (
+          <div key={idx} className="stat-card glass-card" style={{ background: s.bg }}>
+            <div className="stat-icon">{s.icon}</div>
+            <div className="stat-value">{s.value}</div>
+            <div className="stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="section-grid">
+        <Card>
+          <h3 className="cute-title" style={{ fontSize: 18, fontWeight: 700, marginBottom: 14 }}>
+            {user.role === 'doctor' ? '🩺 Vet Dashboard Overview' : '🌟 Owner Dashboard Highlights'}
+          </h3>
+
+          <div className="mini-list">
+            {suggestions.map((item, idx) => (
+              <div key={idx} className="mini-item">
+                <div>
+                  <div style={{ fontWeight: 600 }}>Smart Suggestion {idx + 1}</div>
+                  <div className="muted">{item}</div>
+                </div>
+                <span>💡</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card>
+          <h3 className="cute-title" style={{ fontSize: 18, fontWeight: 700, marginBottom: 14 }}>⚡ Quick Actions</h3>
+          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+            {user.role !== 'doctor' && <Btn onClick={onQuickAddPet}>➕ Add a Pet</Btn>}
+            {user.role !== 'doctor' && <Btn variant="secondary" onClick={onGoArticles}>📚 Open Articles</Btn>}
+            <Btn variant="secondary" onClick={onGoPlaces}>📍 Browse Places</Btn>
+            <Btn variant="secondary" onClick={onBookAppointment}>📅 Book Appointment</Btn>
+            <Btn variant="ghost" onClick={onOpenProfile}>👤 Open Profile</Btn>
+          </div>
+        </Card>
+      </div>
+
+      <div style={{ marginTop: 18 }}>
+        <Card>
+          <h3 className="cute-title" style={{ fontSize: 18, fontWeight: 700, marginBottom: 14 }}>
+            {user.role === 'doctor' ? '📌 Appointment Snapshot' : '📌 Upcoming Care Snapshot'}
+          </h3>
+
+          <div className="mini-list">
+            {myAppointments.length === 0 ? (
+              <div className="mini-item">
+                <div>
+                  <div style={{ fontWeight: 600 }}>No appointments yet</div>
+                  <div className="muted">Create one from the Appointments tab.</div>
+                </div>
+                <span>📅</span>
+              </div>
+            ) : myAppointments.slice(0, 4).map(appt => (
+              <div key={appt.id} className="mini-item">
+                <div>
+                  <div style={{ fontWeight: 600 }}>{appt.date} • {appt.time}</div>
+                  <div className="muted">Status: {appt.status}</div>
+                </div>
+                <span>🕒</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function ArticlesSection() {
+  const [animalFilter, setAnimalFilter] = useState('All');
+  const filters = ['All', ...Array.from(new Set(ARTICLES.map(a => a.animal)))];
+  const filtered = animalFilter === 'All'
+    ? ARTICLES
+    : ARTICLES.filter(a => a.animal === animalFilter);
+
+  return (
+    <div>
+      <Card style={{ marginBottom: 16 }}>
+        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>📚 Pet Care Articles</h3>
+        <p className="muted">Filter articles by animal type and explore quick pet care guides.</p>
+
+        <div className="filter-row" style={{ marginTop: 14 }}>
+          {filters.map(f => (
+            <button
+              key={f}
+              className={`chip-btn ${animalFilter === f ? 'active' : ''}`}
+              onClick={() => setAnimalFilter(f)}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      </Card>
+
+      <div className="card-grid-3">
+        {filtered.map(article => (
+          <Card key={article.id} style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ height: 120, display:'flex', alignItems:'center', justifyContent:'center', fontSize:42, background: article.bg }}>
+              {article.emoji}
+            </div>
+            <div style={{ padding: 14 }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 8 }}>
+                <Badge>{article.animal}</Badge>
+                <span className="muted">{article.readTime}</span>
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>{article.title}</div>
+              <div className="muted">{article.summary}</div>
+              <div className="tag-row">
+                <span className="tiny-tag">{article.category}</span>
+                <span className="tiny-tag">Pet Care</span>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PlacesSection() {
+  const [cityFilter, setCityFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
+  const cities = ['All', ...Array.from(new Set(PLACES.map(p => p.city)))];
+  const types = ['All', 'Vet Clinic', 'Pet Shop'];
+
+  const filtered = PLACES.filter(p => {
+    const cityOk = cityFilter === 'All' || p.city === cityFilter;
+    const typeOk = typeFilter === 'All' || p.type === typeFilter;
+    return cityOk && typeOk;
+  });
+
+  return (
+    <div>
+      <Card style={{ marginBottom: 16 }}>
+        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>📍 Vet Clinics & Pet Shops</h3>
+        <p className="muted">Browse care locations and stores for pet essentials.</p>
+
+        <div className="filter-row" style={{ marginTop: 14 }}>
+          {cities.map(c => (
+            <button
+              key={c}
+              className={`chip-btn ${cityFilter === c ? 'active' : ''}`}
+              onClick={() => setCityFilter(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        <div className="filter-row">
+          {types.map(t => (
+            <button
+              key={t}
+              className={`chip-btn ${typeFilter === t ? 'active' : ''}`}
+              onClick={() => setTypeFilter(t)}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </Card>
+
+      <div className="card-grid-3">
+        {filtered.map(place => (
+          <Card key={place.id}>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 10 }}>
+              <Badge bg={place.type === 'Vet Clinic' ? '#EEEDFE' : '#E1F5EE'} color={place.type === 'Vet Clinic' ? '#534AB7' : '#0F6E56'}>
+                {place.type === 'Vet Clinic' ? '🩺 Vet Clinic' : '🛍️ Pet Shop'}
+              </Badge>
+              <span className="muted">{place.city}</span>
+            </div>
+
+            <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>{place.name}</div>
+            <div className="muted" style={{ marginBottom: 6 }}>📍 {place.area}</div>
+            <div className="muted" style={{ marginBottom: 6 }}>☎️ {place.phone}</div>
+            <div className="muted" style={{ marginBottom: 8 }}>⏰ {place.timing}</div>
+
+            <div className="tag-row">
+              {place.services.map((s, i) => <span key={i} className="tiny-tag">{s}</span>)}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AppointmentsSection({ user, pets, doctors, appointments, notify, refreshData }) {
+  async function updateStatus(id, status) {
+    try {
+      await api(`/api/appointments/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+      });
+      notify('Appointment updated', `Status changed to ${status}.`, 'info');
+      refreshData();
+    } catch (err) {
+      notify('Action failed', err.message, 'warning');
+    }
+  }
+
+  return (
+    <div>
+      <Card style={{ marginBottom: 16 }}>
+        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>📅 Appointments</h3>
+        <p className="muted">
+          {user.role === 'doctor'
+            ? 'Manage appointments assigned to you.'
+            : 'Track your booked appointments here.'}
+        </p>
+      </Card>
+
+      <div className="mini-list">
+        {appointments.length === 0 ? (
+          <Card>
+            <div style={{ fontWeight: 600, marginBottom: 6 }}>No appointments yet</div>
+            <div className="muted">Once booked, they will appear here.</div>
+          </Card>
+        ) : appointments.map(appt => {
+          const pet = pets.find(p => p.id === appt.petId);
+          const vet = doctors.find(d => d.id === appt.vetId);
+
+          return (
+            <Card key={appt.id}>
+              <div style={{ display:'flex', justifyContent:'space-between', gap:12, alignItems:'flex-start' }}>
+                <div>
+                  <div style={{ fontWeight: 700, marginBottom: 6 }}>
+                    {pet ? `${pet.name} (${pet.type})` : 'Pet'} • {appt.date} • {appt.time}
+                  </div>
+                  <div className="muted" style={{ marginBottom: 6 }}>
+                    Vet: {vet ? vet.name : 'Not assigned'}
+                  </div>
+                  <div className="muted" style={{ marginBottom: 6 }}>
+                    Notes: {appt.notes || 'No notes'}
+                  </div>
+                  <Badge bg="#EEEDFE" color="#534AB7">{appt.status}</Badge>
+                </div>
+
+                {user.role === 'doctor' && (
+                  <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+                    <Btn variant="secondary" onClick={() => updateStatus(appt.id, 'Approved')} style={{ padding:'8px 12px' }}>Approve</Btn>
+                    <Btn variant="secondary" onClick={() => updateStatus(appt.id, 'Rejected')} style={{ padding:'8px 12px' }}>Reject</Btn>
+                    <Btn variant="ghost" onClick={() => updateStatus(appt.id, 'Completed')} style={{ padding:'8px 12px' }}>Complete</Btn>
+                  </div>
+                )}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function AuthScreen({ onLogin, notify }) {
   const [tab,setTab] = useState('login');
   const [role,setRole] = useState('user');
   const [form,setForm] = useState({name:'',email:'',password:'',specialization:''});
@@ -520,7 +1260,7 @@ function AuthScreen({ onLogin, data, setData, refreshData }) {
       });
 
       setError('');
-      await refreshData();
+      notify('Welcome back', `${result.user.name} signed in successfully.`, 'success');
       onLogin(result.user);
     } catch (err) {
       setError(err.message);
@@ -546,7 +1286,7 @@ function AuthScreen({ onLogin, data, setData, refreshData }) {
 
       setError('');
       setTab('login');
-      alert('🎉 Account created successfully!');
+      notify('Registration complete', 'Your account has been created successfully.', 'success');
     } catch (err) {
       setError(err.message);
     }
@@ -652,61 +1392,145 @@ function AuthScreen({ onLogin, data, setData, refreshData }) {
   );
 }
 
-function PetScreen({ user, data, setData, onNav, refreshData }) {
+function MainApp({ user, data, refreshData, onLogout, notify }) {
+  const [section, setSection] = useState('dashboard');
   const [view,setView] = useState('list');
-  const [form,setForm] = useState({name:'',type:'Dog',breed:'',age:'',feedingSchedule:'',medicineReminder:''});
-  const [error,setError] = useState('');
   const [showProfile, setShowProfile] = useState(false);
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [ratingPet, setRatingPet] = useState(null);
 
-  const myPets = data.pets.filter(p=>p.ownerId===user.id);
-  const myVisits = data.vetVisits.filter(v => myPets.some(p => p.id === v.petId));
-  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  const [petForm,setPetForm] = useState({
+    name:'',type:'Dog',breed:'',age:'',feedingSchedule:'',medicineReminder:'',vetId:''
+  });
+  const [petError,setPetError] = useState('');
+
+  const setPetField = (k,v) => setPetForm(f=>({...f,[k]:v}));
+
+  const allPets = data.pets || [];
+  const allVisits = data.vetVisits || [];
+  const allAppointments = data.appointments || [];
+  const allRatings = data.ratings || [];
+  const doctors = data.doctors || [];
+
+  const myPets = useMemo(() => {
+    if (user.role === 'doctor') {
+      return allPets.filter(p => String(p.vetId) === String(user.id));
+    }
+    return allPets.filter(p => String(p.ownerId) === String(user.id));
+  }, [allPets, user]);
+
+  const assignedPatients = useMemo(() => allPets.filter(p => String(p.vetId) === String(user.id)), [allPets, user]);
+  const myVisits = useMemo(() => {
+    if (user.role === 'doctor') {
+      const ids = assignedPatients.map(p => p.id);
+      return allVisits.filter(v => ids.includes(v.petId));
+    }
+    const ids = myPets.map(p => p.id);
+    return allVisits.filter(v => ids.includes(v.petId));
+  }, [allVisits, myPets, assignedPatients, user]);
+
+  const myAppointments = useMemo(() => {
+    if (user.role === 'doctor') {
+      return allAppointments.filter(a => String(a.vetId) === String(user.id));
+    }
+    return allAppointments.filter(a => String(a.ownerId) === String(user.id));
+  }, [allAppointments, user]);
+
+  const myRatings = useMemo(() => {
+    if (user.role === 'doctor') {
+      return allRatings.filter(r => String(r.vetId) === String(user.id));
+    }
+    return allRatings.filter(r => String(r.ownerId) === String(user.id));
+  }, [allRatings, user]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [petTypeFilter, setPetTypeFilter] = useState('All');
+
+  const filteredPets = useMemo(() => {
+    return myPets.filter(p => {
+      const searchOk =
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.breed.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const typeOk = petTypeFilter === 'All' || p.type === petTypeFilter;
+      return searchOk && typeOk;
+    });
+  }, [myPets, searchTerm, petTypeFilter]);
 
   async function savePet() {
     try {
-      if (!form.name || !form.breed || !form.age) {
-        return setError('Name, breed and age are required');
+      if (!petForm.name || !petForm.breed || !petForm.age) {
+        return setPetError('Name, breed and age are required');
       }
 
       await api("/api/pets", {
         method: "POST",
         body: JSON.stringify({
           ownerId: user.id,
-          name: form.name,
-          type: form.type,
-          breed: form.breed,
-          age: form.age,
-          feedingSchedule: form.feedingSchedule,
-          medicineReminder: form.medicineReminder
+          vetId: petForm.vetId || null,
+          name: petForm.name,
+          type: petForm.type,
+          breed: petForm.breed,
+          age: petForm.age,
+          feedingSchedule: petForm.feedingSchedule,
+          medicineReminder: petForm.medicineReminder
         })
       });
 
-      setForm({
-        name: '',
-        type: 'Dog',
-        breed: '',
-        age: '',
-        feedingSchedule: '',
-        medicineReminder: ''
+      setPetForm({
+        name:'',type:'Dog',breed:'',age:'',feedingSchedule:'',medicineReminder:'',vetId:''
       });
-
-      setError('');
-      await refreshData();
+      setPetError('');
+      setSection('pets');
       setView('list');
-      alert('🐾 Pet profile created successfully!');
+      notify('Pet profile saved', 'Your pet was added successfully.', 'success');
+      refreshData();
     } catch (err) {
-      setError(err.message);
+      setPetError(err.message);
     }
   }
 
   async function deletePet(id) {
     try {
       await api(`/api/pets/${id}`, { method: "DELETE" });
-      await refreshData();
+      notify('Pet removed', 'The pet profile was deleted.', 'warning');
+      refreshData();
     } catch (err) {
-      console.error(err.message);
+      notify('Delete failed', err.message, 'warning');
     }
   }
+
+  async function bookAppointment(payload) {
+    try {
+      await api('/api/appointments', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      setShowAppointmentModal(false);
+      notify('Appointment booked', 'Your appointment request has been sent.', 'success');
+      refreshData();
+    } catch (err) {
+      notify('Booking failed', err.message, 'warning');
+    }
+  }
+
+  async function submitRating(payload) {
+    try {
+      await api('/api/ratings', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      setRatingPet(null);
+      notify('Rating submitted', 'Thanks for sharing your feedback.', 'success');
+      refreshData();
+    } catch (err) {
+      notify('Rating failed', err.message, 'warning');
+    }
+  }
+
+  const avgDoctorRating = myRatings.length
+    ? myRatings.reduce((sum, r) => sum + r.rating, 0) / myRatings.length
+    : 0;
 
   const petTypeColors = {
     Dog:['#B5D4F4','#185FA5'],
@@ -715,6 +1539,8 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
     Rabbit:['#F4C0D1','#993556'],
     Fish:['#9FE1CB','#0F6E56'],
     Hamster:['#FAC775','#854F0B'],
+    Parrot:['#DDF6FF','#0F6E56'],
+    Turtle:['#D7F7D8','#32734A'],
     Other:['#D3D1C7','#5F5E5A']
   };
 
@@ -722,9 +1548,10 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
     <div className="page-shell sidebar-layout">
       <Sidebar
         user={user}
-        active="pets"
+        active={section}
+        onNavigate={setSection}
         onProfileClick={() => setShowProfile(true)}
-        onSignOut={() => onNav('logout')}
+        onSignOut={onLogout}
       />
 
       <div className="main-content">
@@ -743,8 +1570,17 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
           boxShadow:'0 8px 20px rgba(0,0,0,0.05)'
         }}>
           <div>
-            <h2 className="cute-title" style={{fontSize:22,fontWeight:700}}>🐾 My Pets</h2>
-            <p style={{fontSize:13,color:'#666'}}>{myPets.length} registered</p>
+            <h2 className="cute-title" style={{fontSize:22,fontWeight:700}}>
+              {section === 'dashboard' && '🏠 Dashboard'}
+              {section === 'pets' && '🐾 My Pets'}
+              {section === 'patients' && '🩺 Patients'}
+              {section === 'appointments' && '📅 Appointments'}
+              {section === 'articles' && '📚 Articles'}
+              {section === 'places' && '📍 Places'}
+            </h2>
+            <p style={{fontSize:13,color:'#666'}}>
+              {user.role === 'doctor' ? 'Veterinary workspace' : 'Pet owner workspace'}
+            </p>
           </div>
 
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
@@ -758,43 +1594,61 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
               </div>
             </div>
 
-            <Btn onClick={()=>setView(view==='add'?'list':'add')} variant={view==='add'?'secondary':'primary'}>
-              {view==='add'?'Cancel':'➕ Add pet'}
-            </Btn>
+            {user.role !== 'doctor' && section === 'pets' && (
+              <Btn onClick={()=>setView(view==='add'?'list':'add')} variant={view==='add'?'secondary':'primary'}>
+                {view==='add'?'Cancel':'➕ Add pet'}
+              </Btn>
+            )}
+
+            {section === 'appointments' && user.role !== 'doctor' && (
+              <Btn onClick={() => setShowAppointmentModal(true)}>➕ Book appointment</Btn>
+            )}
           </div>
         </div>
 
-        <div style={{maxWidth:900,margin:'0 auto',padding:20}}>
-          {view==='add'&&(
-            <Card style={{marginBottom:20}}>
-              <h3 className="cute-title" style={{fontSize:17,fontWeight:700,marginBottom:16}}>🐶 New Pet Profile</h3>
-
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px'}}>
-                <Input label="Pet name *" placeholder="Buddy" value={form.name} onChange={e=>set('name',e.target.value)}/>
-                <Select label="Type" options={PET_TYPES.map(t=>({value:t,label:t}))} value={form.type} onChange={e=>set('type',e.target.value)}/>
-                <Input label="Breed *" placeholder="Golden Retriever" value={form.breed} onChange={e=>set('breed',e.target.value)}/>
-                <Input label="Age (years) *" type="number" min="0" placeholder="3" value={form.age} onChange={e=>set('age',e.target.value)}/>
-              </div>
-
-              <Input label="Feeding schedule" placeholder="e.g. 8am & 6pm, 2 cups kibble" value={form.feedingSchedule} onChange={e=>set('feedingSchedule',e.target.value)}/>
-              <Input label="Medicine reminders" placeholder="e.g. Flea tablet every month" value={form.medicineReminder} onChange={e=>set('medicineReminder',e.target.value)}/>
-
-              {error&&<p style={{color:'#D85A30',fontSize:13,marginBottom:10}}>{error}</p>}
-              <Btn onClick={savePet}>💖 Save pet</Btn>
-            </Card>
+        <div style={{maxWidth:1100,margin:'0 auto',padding:20}}>
+          {section === 'dashboard' && (
+            <DashboardSection
+              user={user}
+              myPets={myPets}
+              assignedPatients={assignedPatients}
+              myVisits={myVisits}
+              myAppointments={myAppointments}
+              ratings={myRatings}
+              onQuickAddPet={() => { setSection('pets'); setView('add'); }}
+              onBookAppointment={() => setShowAppointmentModal(true)}
+              onGoArticles={() => setSection('articles')}
+              onGoPlaces={() => setSection('places')}
+              onOpenProfile={() => setShowProfile(true)}
+            />
           )}
 
-          {myPets.length===0&&view!=='add'?(
-            <Card style={{textAlign:'center',padding:'40px 20px'}}>
-              <div style={{fontSize:48,marginBottom:12}}>🐶</div>
-              <p style={{fontWeight:500,marginBottom:6}}>No pets yet</p>
-              <p style={{fontSize:13,color:'#666'}}>Add your first pet to get started</p>
-            </Card>
-          ):(
-            <div style={{display:'flex',flexDirection:'column',gap:12}}>
-              {myPets.map(pet=>{
-                const [bg,fg] = petTypeColors[pet.type]||petTypeColors.Other;
-                const visits = data.vetVisits.filter(v=>v.petId===pet.id);
+          {section === 'articles' && user.role !== 'doctor' && <ArticlesSection />}
+
+          {section === 'places' && <PlacesSection />}
+
+          {section === 'appointments' && (
+            <AppointmentsSection
+              user={user}
+              pets={user.role === 'doctor' ? assignedPatients : myPets}
+              doctors={doctors}
+              appointments={myAppointments}
+              notify={notify}
+              refreshData={refreshData}
+            />
+          )}
+
+          {section === 'patients' && user.role === 'doctor' && (
+            <div className="mini-list">
+              {assignedPatients.length === 0 ? (
+                <Card style={{textAlign:'center',padding:'40px 20px'}}>
+                  <div style={{fontSize:44,marginBottom:12}}>🩺</div>
+                  <p style={{fontWeight:500,marginBottom:6}}>No assigned patients yet</p>
+                  <p className="muted">Patients assigned to you will appear here.</p>
+                </Card>
+              ) : assignedPatients.map(pet => {
+                const [bg,fg] = petTypeColors[pet.type] || petTypeColors.Other;
+                const visits = myVisits.filter(v => v.petId === pet.id);
 
                 return (
                   <Card key={pet.id}>
@@ -806,24 +1660,116 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
                             <span style={{fontWeight:600,fontSize:16}}>{pet.name}</span>
                             <Badge bg={bg} color={fg}>{pet.type}</Badge>
                           </div>
-                          <p style={{fontSize:13,color:'#666',marginBottom:8}}>{pet.breed} • {pet.age} yr{pet.age!=1?'s':''}</p>
-                          <div style={{display:'flex',gap:16,fontSize:12,flexWrap:'wrap'}}>
-                            {pet.feedingSchedule&&<span style={{color:'#666'}}>🍽 {pet.feedingSchedule}</span>}
-                            {pet.medicineReminder&&<span style={{color:'#666'}}>💊 {pet.medicineReminder}</span>}
-                          </div>
-                          {visits.length>0&&<p style={{fontSize:12,color:'#0F6E56',marginTop:6}}>✓ {visits.length} vet visit{visits.length!==1?'s':''} logged</p>}
+                          <p className="muted">{pet.breed} • {pet.age} years</p>
+                          <p className="muted" style={{ marginTop: 6 }}>Visit logs: {visits.length}</p>
                         </div>
-                      </div>
-
-                      <div style={{display:'flex',gap:8}}>
-                        <Btn variant="ghost" onClick={()=>onNav('vet',pet)} style={{padding:'6px 12px',fontSize:12}}>🩺 Vet visits</Btn>
-                        <Btn variant="secondary" onClick={()=>deletePet(pet.id)} style={{padding:'6px 10px',fontSize:12}}>✕</Btn>
                       </div>
                     </div>
                   </Card>
                 );
               })}
             </div>
+          )}
+
+          {section === 'pets' && user.role !== 'doctor' && (
+            <>
+              {view==='add'&&(
+                <Card style={{marginBottom:20}}>
+                  <h3 className="cute-title" style={{fontSize:17,fontWeight:700,marginBottom:16}}>🐶 New Pet Profile</h3>
+
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px'}}>
+                    <Input label="Pet name *" placeholder="Buddy" value={petForm.name} onChange={e=>setPetField('name',e.target.value)}/>
+                    <Select label="Pet type *" options={PET_TYPES.map(t=>({value:t,label:t}))} value={petForm.type} onChange={e=>setPetField('type',e.target.value)}/>
+                    <Input label="Breed *" placeholder="Golden Retriever" value={petForm.breed} onChange={e=>setPetField('breed',e.target.value)}/>
+                    <Input label="Age (years) *" type="number" min="0" placeholder="3" value={petForm.age} onChange={e=>setPetField('age',e.target.value)}/>
+                  </div>
+
+                  <Select
+                    label="Select Veterinarian"
+                    value={petForm.vetId}
+                    onChange={e => setPetField('vetId', e.target.value)}
+                    options={[
+                      { value: '', label: 'Choose a vet' },
+                      ...doctors.map(d => ({
+                        value: String(d.id),
+                        label: `${d.name}${d.specialization ? ` (${d.specialization})` : ''}`
+                      }))
+                    ]}
+                  />
+
+                  <Input label="Feeding schedule" placeholder="e.g. 8am & 6pm, 2 cups kibble" value={petForm.feedingSchedule} onChange={e=>setPetField('feedingSchedule',e.target.value)}/>
+                  <Input label="Medicine reminders" placeholder="e.g. Flea tablet every month" value={petForm.medicineReminder} onChange={e=>setPetField('medicineReminder',e.target.value)}/>
+
+                  {petError&&<p style={{color:'#D85A30',fontSize:13,marginBottom:10}}>{petError}</p>}
+                  <Btn onClick={savePet}>💖 Save pet</Btn>
+                </Card>
+              )}
+
+              <Card style={{ marginBottom: 16 }}>
+                <div style={{ display:'grid', gridTemplateColumns:'2fr 1fr', gap:12 }}>
+                  <Input
+                    label="Search pets"
+                    placeholder="Search by name or breed"
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                  />
+                  <Select
+                    label="Filter by type"
+                    value={petTypeFilter}
+                    onChange={e => setPetTypeFilter(e.target.value)}
+                    options={[
+                      { value: 'All', label: 'All Types' },
+                      ...PET_TYPES.map(t => ({ value: t, label: t }))
+                    ]}
+                  />
+                </div>
+              </Card>
+
+              {filteredPets.length===0&&view!=='add'?(
+                <Card style={{textAlign:'center',padding:'40px 20px'}}>
+                  <div style={{fontSize:48,marginBottom:12}}>🐶</div>
+                  <p style={{fontWeight:500,marginBottom:6}}>No pets found</p>
+                  <p style={{fontSize:13,color:'#666'}}>Try changing your search or add a new pet.</p>
+                </Card>
+              ):(
+                <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                  {filteredPets.map(pet=>{
+                    const [bg,fg] = petTypeColors[pet.type]||petTypeColors.Other;
+                    const visits = myVisits.filter(v=>v.petId===pet.id);
+                    const vet = doctors.find(d => String(d.id) === String(pet.vetId));
+
+                    return (
+                      <Card key={pet.id}>
+                        <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:12}}>
+                          <div style={{display:'flex',gap:14,flex:1}}>
+                            <Avatar name={pet.name} size={48} bg={bg} color={fg}/>
+                            <div style={{flex:1}}>
+                              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}>
+                                <span style={{fontWeight:600,fontSize:16}}>{pet.name}</span>
+                                <Badge bg={bg} color={fg}>{pet.type}</Badge>
+                              </div>
+                              <p className="muted">{pet.breed} • {pet.age} years</p>
+                              <div style={{display:'flex',gap:16,fontSize:12,flexWrap:'wrap', marginTop: 8}}>
+                                {pet.feedingSchedule&&<span style={{color:'#666'}}>🍽 {pet.feedingSchedule}</span>}
+                                {pet.medicineReminder&&<span style={{color:'#666'}}>💊 {pet.medicineReminder}</span>}
+                                {vet&&<span style={{color:'#666'}}>🩺 {vet.name}</span>}
+                              </div>
+                              {visits.length>0&&<p style={{fontSize:12,color:'#0F6E56',marginTop:6}}>✓ {visits.length} vet visit{visits.length!==1?'s':''} logged</p>}
+                            </div>
+                          </div>
+
+                          <div style={{display:'flex',gap:8, flexWrap:'wrap', justifyContent:'flex-end'}}>
+                            <Btn variant="secondary" onClick={() => setShowAppointmentModal(true)} style={{padding:'6px 10px',fontSize:12}}>📅 Book</Btn>
+                            {pet.vetId && <Btn variant="ghost" onClick={() => setRatingPet(pet)} style={{padding:'6px 10px',fontSize:12}}>⭐ Rate Vet</Btn>}
+                            <Btn variant="secondary" onClick={()=>deletePet(pet.id)} style={{padding:'6px 10px',fontSize:12}}>✕</Btn>
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -832,218 +1778,30 @@ function PetScreen({ user, data, setData, onNav, refreshData }) {
             user={user}
             petCount={myPets.length}
             visitCount={myVisits.length}
+            appointmentCount={myAppointments.length}
+            avgRating={avgDoctorRating}
             onClose={() => setShowProfile(false)}
-            onSignOut={() => onNav('logout')}
+            onSignOut={onLogout}
           />
         )}
-      </div>
-    </div>
-  );
-}
-function VetScreen({ user, pet, data, setData, onBack, refreshData, onNav }) {
-  const [form,setForm] = useState({
-    date:new Date().toISOString().slice(0,10),
-    reason:'',
-    diagnosis:'',
-    treatment:'',
-    remarks:'',
-    doctor:user.role==='doctor'?user.name:''
-  });
-  const [adding,setAdding] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
 
-  const set = (k,v) => setForm(f=>({...f,[k]:v}));
-  const visits = data.vetVisits.filter(v=>v.petId===pet.id).sort((a,b)=>new Date(b.date)-new Date(a.date));
-  const myVisitCount = data.vetVisits.filter(v => v.loggedBy === user.id).length;
+        {showAppointmentModal && user.role !== 'doctor' && (
+          <AppointmentModal
+            pets={myPets}
+            doctors={doctors}
+            ownerId={user.id}
+            onClose={() => setShowAppointmentModal(false)}
+            onSubmit={bookAppointment}
+          />
+        )}
 
-  async function saveVisit() {
-    try {
-      if (!form.reason) return;
-
-      await api("/api/vet-visits", {
-        method: "POST",
-        body: JSON.stringify({
-          petId: pet.id,
-          loggedBy: user.id,
-          loggedByName: user.name,
-          date: form.date,
-          reason: form.reason,
-          diagnosis: form.diagnosis,
-          treatment: form.treatment,
-          remarks: form.remarks,
-          doctor: form.doctor
-        })
-      });
-
-      setForm({
-        date: new Date().toISOString().slice(0, 10),
-        reason: '',
-        diagnosis: '',
-        treatment: '',
-        remarks: '',
-        doctor: user.role === 'doctor' ? user.name : ''
-      });
-
-      await refreshData();
-      setAdding(false);
-      alert('🩺 Vet visit saved successfully!');
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  async function deleteVisit(id) {
-    try {
-      await api(`/api/vet-visits/${id}`, { method: "DELETE" });
-      await refreshData();
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  return (
-    <div className="page-shell sidebar-layout">
-      <Sidebar
-        user={user}
-        active="dashboard"
-        onProfileClick={() => setShowProfile(true)}
-        onSignOut={() => onNav('logout')}
-      />
-
-      <div className="main-content">
-        <div style={{
-          background:'rgba(255,255,255,0.65)',
-          borderBottom:'1px solid rgba(255,255,255,0.45)',
-          padding:'14px 20px',
-          display:'flex',
-          alignItems:'center',
-          gap:12,
-          position:'sticky',
-          top:0,
-          zIndex:10,
-          backdropFilter:'blur(14px)',
-          WebkitBackdropFilter:'blur(14px)',
-          boxShadow:'0 8px 20px rgba(0,0,0,0.05)'
-        }}>
-          <button onClick={onBack} style={{background:'none',border:'none',cursor:'pointer',color:'#534AB7',fontSize:20,lineHeight:1}}>←</button>
-          <Avatar name={pet.name} size={36} bg="#B5D4F4" color="#185FA5"/>
-          <div>
-            <p style={{fontWeight:600,fontSize:15}}>{pet.name}</p>
-            <p style={{fontSize:12,color:'#666'}}>{pet.breed} · {pet.type}</p>
-          </div>
-
-          <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:12}}>
-            <div className="profile-chip" onClick={() => setShowProfile(true)}>
-              <Avatar name={user.name} size={32}/>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 600 }}>{user.name}</div>
-                <div style={{ fontSize: 11, color: '#666' }}>
-                  {user.role === 'doctor' ? 'Vet' : 'Owner'}
-                </div>
-              </div>
-            </div>
-
-            <Btn onClick={()=>setAdding(!adding)} variant={adding?'secondary':'primary'} style={{padding:'7px 14px',fontSize:13}}>
-              {adding?'Cancel':'➕ Log visit'}
-            </Btn>
-          </div>
-        </div>
-
-        <div style={{maxWidth:900,margin:'0 auto',padding:20}}>
-          {adding&&(
-            <Card style={{marginBottom:20}}>
-              <h3 className="cute-title" style={{fontSize:17,fontWeight:700,marginBottom:16}}>🩺 New Vet Visit</h3>
-
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 16px'}}>
-                <Input label="Date" type="date" value={form.date} onChange={e=>set('date',e.target.value)}/>
-                <Input label="Doctor name" placeholder="Dr. Priya Sharma" value={form.doctor} onChange={e=>set('doctor',e.target.value)}/>
-              </div>
-
-              <Input label="Reason for visit *" placeholder="Annual checkup / Vaccination / Illness..." value={form.reason} onChange={e=>set('reason',e.target.value)}/>
-              <Input label="Diagnosis" placeholder="e.g. Mild ear infection" value={form.diagnosis} onChange={e=>set('diagnosis',e.target.value)}/>
-              <Input label="Treatment / Prescription" placeholder="e.g. Ear drops 2x daily for 7 days" value={form.treatment} onChange={e=>set('treatment',e.target.value)}/>
-
-              <div style={{marginBottom:16}}>
-                <label style={{fontSize:12,color:'#666',display:'block',marginBottom:5,fontWeight:500}}>Remarks / Notes</label>
-                <textarea
-                  value={form.remarks}
-                  onChange={e=>set('remarks',e.target.value)}
-                  placeholder="Any additional notes or follow-up instructions..."
-                  rows={3}
-                  style={{
-                    fontFamily:'inherit',fontSize:14,padding:'10px 12px',
-                    border:'1px solid rgba(180,180,180,0.45)',borderRadius:12,
-                    background:'rgba(255,255,255,0.75)',color:'#111',width:'100%',
-                    outline:'none',resize:'vertical'
-                  }}
-                />
-              </div>
-
-              <Btn onClick={saveVisit} disabled={!form.reason}>💜 Save visit record</Btn>
-            </Card>
-          )}
-
-          {visits.length===0&&!adding?(
-            <Card style={{textAlign:'center',padding:'40px 20px'}}>
-              <div style={{fontSize:44,marginBottom:12}}>🩺</div>
-              <p style={{fontWeight:500,marginBottom:6}}>No vet visits yet</p>
-              <p style={{fontSize:13,color:'#666'}}>Log the first visit for {pet.name}</p>
-            </Card>
-          ):(
-            <div>
-              <p style={{fontSize:13,color:'#666',marginBottom:12}}>{visits.length} visit record{visits.length!==1?'s':''}</p>
-              <div style={{display:'flex',flexDirection:'column',gap:12}}>
-                {visits.map(v=>(
-                  <Card key={v.id}>
-                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
-                      <div>
-                        <span style={{fontWeight:600,fontSize:15}}>{v.reason}</span>
-                        <p style={{fontSize:12,color:'#666',marginTop:2}}>
-                          {new Date(v.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
-                          {v.doctor&&` · ${v.doctor}`}
-                        </p>
-                      </div>
-                      <button onClick={()=>deleteVisit(v.id)} style={{background:'none',border:'none',cursor:'pointer',color:'#999',fontSize:18,lineHeight:1,padding:4}}>✕</button>
-                    </div>
-
-                    <div style={{display:'flex',flexDirection:'column',gap:8}}>
-                      {v.diagnosis&&(
-                        <div style={{background:'#f5f5f0',borderRadius:10,padding:'8px 12px'}}>
-                          <p style={{fontSize:11,color:'#888',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em'}}>Diagnosis</p>
-                          <p style={{fontSize:13}}>{v.diagnosis}</p>
-                        </div>
-                      )}
-
-                      {v.treatment&&(
-                        <div style={{background:'#E1F5EE',borderRadius:10,padding:'8px 12px'}}>
-                          <p style={{fontSize:11,color:'#0F6E56',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em'}}>Treatment</p>
-                          <p style={{fontSize:13,color:'#085041'}}>{v.treatment}</p>
-                        </div>
-                      )}
-
-                      {v.remarks&&(
-                        <div style={{borderLeft:'3px solid #AFA9EC',paddingLeft:12}}>
-                          <p style={{fontSize:12,color:'#888',marginBottom:2}}>Remarks</p>
-                          <p style={{fontSize:13}}>{v.remarks}</p>
-                        </div>
-                      )}
-                    </div>
-
-                    <p style={{fontSize:11,color:'#999',marginTop:10}}>Logged by {v.loggedByName}</p>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {showProfile && (
-          <ProfilePanel
-            user={user}
-            petCount={0}
-            visitCount={myVisitCount}
-            onClose={() => setShowProfile(false)}
-            onSignOut={() => onNav('logout')}
+        {ratingPet && (
+          <RatingModal
+            pet={ratingPet}
+            ownerId={user.id}
+            doctors={doctors}
+            onClose={() => setRatingPet(null)}
+            onSubmit={submitRating}
           />
         )}
       </div>
@@ -1052,82 +1810,62 @@ function VetScreen({ user, pet, data, setData, onBack, refreshData, onNav }) {
 }
 
 function App() {
-  const [data, setData] = React.useState({ users: [], pets: [], vetVisits: [] });
-  const [screen, setScreen] = React.useState('auth');
-  const [user, setUser] = React.useState(null);
-  const [selectedPet, setSelectedPet] = React.useState(null);
+  const [data, setData] = useState({
+    users: [],
+    pets: [],
+    vetVisits: [],
+    appointments: [],
+    ratings: [],
+    doctors: []
+  });
+  const [user, setUser] = useState(null);
+  const [toasts, setToasts] = useState([]);
 
   async function refreshData() {
     try {
-      const freshData = await loadData();
-      setData(freshData);
+      const fresh = await loadData();
+      setData(fresh);
     } catch (err) {
       console.error(err);
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     refreshData();
   }, []);
 
-  function handleLogin(u) {
-    setUser(u);
-    setScreen('pets');
-    refreshData();
+  function notify(title, message, type='info') {
+    const id = Date.now() + Math.random();
+    setToasts(prev => [...prev, { id, title, message, type }]);
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 3200);
   }
 
-  function handleNav(dest, pet = null) {
-    if (dest === 'logout') {
-      setUser(null);
-      setScreen('auth');
-      setSelectedPet(null);
-    } else if (dest === 'vet') {
-      setSelectedPet(pet);
-      setScreen('vet');
-    } else if (dest === 'pets') {
-      setSelectedPet(null);
-      setScreen('pets');
-      refreshData();
-    }
+  function handleLogout() {
+    setUser(null);
+    notify('Signed out', 'You have been logged out successfully.', 'info');
   }
 
-  if (screen === 'auth') {
-    return (
-      <AuthScreen
-        onLogin={handleLogin}
-        data={data}
-        setData={setData}
-        refreshData={refreshData}
-      />
-    );
-  }
-
-  if (screen === 'pets') {
-    return (
-      <PetScreen
-        user={user}
-        data={data}
-        setData={setData}
-        onNav={handleNav}
-        refreshData={refreshData}
-      />
-    );
-  }
-
-  if (screen === 'vet' && selectedPet) {
   return (
-    <VetScreen
-      user={user}
-      pet={selectedPet}
-      data={data}
-      setData={setData}
-      onBack={() => handleNav('pets')}
-      refreshData={refreshData}
-      onNav={handleNav}
-    />
+    <>
+      <Toasts items={toasts} />
+      {!user ? (
+        <AuthScreen
+          onLogin={setUser}
+          notify={notify}
+        />
+      ) : (
+        <MainApp
+          user={user}
+          data={data}
+          refreshData={refreshData}
+          onLogout={handleLogout}
+          notify={notify}
+        />
+      )}
+    </>
   );
-}
-  return null;
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);

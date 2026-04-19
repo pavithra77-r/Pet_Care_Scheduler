@@ -4,7 +4,7 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="Templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pawcare.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -24,7 +24,13 @@ class User(db.Model):
     role = db.Column(db.String(20), nullable=False, default="user")
     specialization = db.Column(db.String(120), nullable=True)
 
-    pets = db.relationship("Pet", backref="owner", lazy=True, cascade="all, delete")
+    pets = db.relationship(
+        "Pet",
+        backref="owner",
+        lazy=True,
+        cascade="all, delete",
+        foreign_keys="Pet.owner_id"
+    )
 
     def to_dict(self):
         return {
@@ -39,6 +45,7 @@ class User(db.Model):
 class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    vet_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
 
     name = db.Column(db.String(120), nullable=False)
     type = db.Column(db.String(50), nullable=False)
@@ -49,12 +56,32 @@ class Pet(db.Model):
     medicine_reminder = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.String(50), nullable=False)
 
-    vet_visits = db.relationship("VetVisit", backref="pet", lazy=True, cascade="all, delete")
+    vet_visits = db.relationship(
+        "VetVisit",
+        backref="pet",
+        lazy=True,
+        cascade="all, delete"
+    )
+
+    appointments = db.relationship(
+        "Appointment",
+        backref="pet",
+        lazy=True,
+        cascade="all, delete"
+    )
+
+    ratings = db.relationship(
+        "VetRating",
+        backref="pet",
+        lazy=True,
+        cascade="all, delete"
+    )
 
     def to_dict(self):
         return {
             "id": self.id,
             "ownerId": self.owner_id,
+            "vetId": self.vet_id,
             "name": self.name,
             "type": self.type,
             "breed": self.breed,
@@ -94,18 +121,81 @@ class VetVisit(db.Model):
         }
 
 
+class Appointment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey("pet.id"), nullable=False)
+    owner_id = db.Column(db.Integer, nullable=False)
+    vet_id = db.Column(db.Integer, nullable=False)
+
+    date = db.Column(db.String(20), nullable=False)
+    time = db.Column(db.String(20), nullable=False)
+    notes = db.Column(db.Text, nullable=True)
+    status = db.Column(db.String(20), nullable=False, default="Pending")
+    created_at = db.Column(db.String(50), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "petId": self.pet_id,
+            "ownerId": self.owner_id,
+            "vetId": self.vet_id,
+            "date": self.date,
+            "time": self.time,
+            "notes": self.notes or "",
+            "status": self.status,
+            "createdAt": self.created_at
+        }
+
+
+class VetRating(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey("pet.id"), nullable=False)
+    owner_id = db.Column(db.Integer, nullable=False)
+    vet_id = db.Column(db.Integer, nullable=False)
+
+    rating = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.String(50), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "petId": self.pet_id,
+            "ownerId": self.owner_id,
+            "vetId": self.vet_id,
+            "rating": self.rating,
+            "comment": self.comment or "",
+            "createdAt": self.created_at
+        }
+
+
 # -----------------------------
-# HELPER FUNCTION
+# HELPERS
 # -----------------------------
 
 def get_dashboard_data():
     users = [u.to_dict() for u in User.query.all()]
     pets = [p.to_dict() for p in Pet.query.all()]
     vet_visits = [v.to_dict() for v in VetVisit.query.all()]
+    appointments = [a.to_dict() for a in Appointment.query.all()]
+    ratings = [r.to_dict() for r in VetRating.query.all()]
+
+    doctors = [
+        {
+            "id": u.id,
+            "name": u.name,
+            "specialization": u.specialization or ""
+        }
+        for u in User.query.filter_by(role="doctor").all()
+    ]
+
     return {
         "users": users,
         "pets": pets,
-        "vetVisits": vet_visits
+        "vetVisits": vet_visits,
+        "appointments": appointments,
+        "ratings": ratings,
+        "doctors": doctors
     }
 
 
@@ -163,6 +253,7 @@ def login():
     password = data.get("password") or ""
 
     user = User.query.filter_by(email=email).first()
+
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({"error": "Invalid email or password"}), 401
 
@@ -195,6 +286,15 @@ def add_pet():
     except (TypeError, ValueError):
         return jsonify({"error": "ownerId and age must be valid numbers"}), 400
 
+    vet_id = data.get("vetId")
+    if vet_id in ("", None):
+        vet_id = None
+    else:
+        try:
+            vet_id = int(vet_id)
+        except (TypeError, ValueError):
+            return jsonify({"error": "vetId must be a valid number"}), 400
+
     name = (data.get("name") or "").strip()
     pet_type = (data.get("type") or "").strip()
     breed = (data.get("breed") or "").strip()
@@ -208,8 +308,14 @@ def add_pet():
     if not owner:
         return jsonify({"error": "Owner not found"}), 404
 
+    if vet_id is not None:
+        vet = User.query.get(vet_id)
+        if not vet or vet.role != "doctor":
+            return jsonify({"error": "Selected veterinarian not found"}), 404
+
     pet = Pet(
         owner_id=owner_id,
+        vet_id=vet_id,
         name=name,
         type=pet_type,
         breed=breed,
@@ -296,7 +402,125 @@ def delete_vet_visit(visit_id):
 
 
 # -----------------------------
-# TEST ROUTE
+# APPOINTMENTS
+# -----------------------------
+
+@app.route("/api/appointments", methods=["POST"])
+def add_appointment():
+    data = request.get_json()
+
+    try:
+        pet_id = int(data.get("petId"))
+        owner_id = int(data.get("ownerId"))
+        vet_id = int(data.get("vetId"))
+    except (TypeError, ValueError):
+        return jsonify({"error": "petId, ownerId and vetId must be valid numbers"}), 400
+
+    date = (data.get("date") or "").strip()
+    time = (data.get("time") or "").strip()
+    notes = (data.get("notes") or "").strip()
+
+    if not date or not time:
+        return jsonify({"error": "Date and time are required"}), 400
+
+    appointment = Appointment(
+        pet_id=pet_id,
+        owner_id=owner_id,
+        vet_id=vet_id,
+        date=date,
+        time=time,
+        notes=notes,
+        status="Pending",
+        created_at=datetime.utcnow().isoformat()
+    )
+
+    db.session.add(appointment)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Appointment booked successfully",
+        "appointment": appointment.to_dict()
+    }), 201
+
+
+@app.route("/api/appointments/<int:appointment_id>", methods=["PATCH"])
+def update_appointment_status(appointment_id):
+    data = request.get_json()
+    appointment = Appointment.query.get(appointment_id)
+
+    if not appointment:
+        return jsonify({"error": "Appointment not found"}), 404
+
+    status = (data.get("status") or "").strip()
+    if status not in ["Pending", "Approved", "Rejected", "Completed"]:
+        return jsonify({"error": "Invalid status"}), 400
+
+    appointment.status = status
+    db.session.commit()
+
+    return jsonify({
+        "message": "Appointment status updated",
+        "appointment": appointment.to_dict()
+    })
+
+
+# -----------------------------
+# RATINGS
+# -----------------------------
+
+@app.route("/api/ratings", methods=["POST"])
+def add_rating():
+    data = request.get_json()
+
+    try:
+        pet_id = int(data.get("petId"))
+        owner_id = int(data.get("ownerId"))
+        vet_id = int(data.get("vetId"))
+        rating_value = int(data.get("rating"))
+    except (TypeError, ValueError):
+        return jsonify({"error": "Invalid rating data"}), 400
+
+    comment = (data.get("comment") or "").strip()
+
+    if rating_value < 1 or rating_value > 5:
+        return jsonify({"error": "Rating must be between 1 and 5"}), 400
+
+    existing = VetRating.query.filter_by(
+        pet_id=pet_id,
+        owner_id=owner_id,
+        vet_id=vet_id
+    ).first()
+
+    if existing:
+        existing.rating = rating_value
+        existing.comment = comment
+        existing.created_at = datetime.utcnow().isoformat()
+        db.session.commit()
+        return jsonify({
+            "message": "Rating updated successfully",
+            "rating": existing.to_dict()
+        })
+
+    rating = VetRating(
+        pet_id=pet_id,
+        owner_id=owner_id,
+        vet_id=vet_id,
+        rating=rating_value,
+        comment=comment,
+        created_at=datetime.utcnow().isoformat()
+    )
+
+    db.session.add(rating)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Rating submitted successfully",
+        "rating": rating.to_dict()
+    }), 201
+
+
+# -----------------------------
+# HEALTH CHECK
 # -----------------------------
 
 @app.route("/api/health", methods=["GET"])
