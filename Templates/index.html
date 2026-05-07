@@ -57,7 +57,6 @@
     background: linear-gradient(90deg, #534AB7, #D85A30, #0F6E56);
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   .floating-pet {
@@ -450,6 +449,11 @@
       grid-template-columns: 1fr;
     }
   }
+  .grooming-section p,
+.grooming-section span,
+.grooming-section li {
+  color: #222 !important;
+}
 </style>
 </head>
 <body>
@@ -478,131 +482,85 @@ async function loadData() {
   return await api("/api/dashboard-data");
 }
 
-const PET_TYPES = ['Dog','Cat','Bird','Rabbit','Fish','Hamster','Parrot','Turtle','Other'];
-
-const ARTICLES = [
-  {
-    id: 1,
-    animal: 'Dog',
-    emoji: '🐶',
-    title: 'Daily Dog Care Routine',
-    summary: 'A simple guide on feeding, walking, grooming and keeping your dog active every day.',
-    category: 'Routine',
-    readTime: '4 min read',
-    bg: 'linear-gradient(135deg, #FFF0D8, #FFE3B3)'
-  },
-  {
-    id: 2,
-    animal: 'Cat',
-    emoji: '🐱',
-    title: 'Indoor Cat Enrichment Ideas',
-    summary: 'Fun play activities and comfort tips to keep indoor cats happy and healthy.',
-    category: 'Lifestyle',
-    readTime: '5 min read',
-    bg: 'linear-gradient(135deg, #FFE2EC, #FFD1E1)'
-  },
-  {
-    id: 3,
-    animal: 'Bird',
-    emoji: '🦜',
-    title: 'Bird Care Basics at Home',
-    summary: 'Learn about cage setup, diet, stimulation and safe handling for pet birds.',
-    category: 'Care',
-    readTime: '6 min read',
-    bg: 'linear-gradient(135deg, #DDF6FF, #C9EDFF)'
-  },
-  {
-    id: 4,
-    animal: 'Rabbit',
-    emoji: '🐰',
-    title: 'Rabbit Diet Essentials',
-    summary: 'A beginner-friendly note on hay, greens, fresh water and safe treats.',
-    category: 'Nutrition',
-    readTime: '4 min read',
-    bg: 'linear-gradient(135deg, #F2E7FF, #E4D6FF)'
-  },
-  {
-    id: 5,
-    animal: 'Fish',
-    emoji: '🐠',
-    title: 'Aquarium Cleaning Basics',
-    summary: 'Tips on tank hygiene, feeding schedules and maintaining water quality.',
-    category: 'Care',
-    readTime: '5 min read',
-    bg: 'linear-gradient(135deg, #DFFFF2, #CBF7E5)'
-  },
-  {
-    id: 6,
-    animal: 'Parrot',
-    emoji: '🦜',
-    title: 'Parrot Bonding Tips',
-    summary: 'Build trust with your parrot through daily interaction and playful routines.',
-    category: 'Training',
-    readTime: '7 min read',
-    bg: 'linear-gradient(135deg, #DDF6FF, #D5FFE8)'
-  }
-];
-
 const PLACES = [
+  // Bengaluru
   {
     id: 1,
     type: 'Vet Clinic',
     city: 'Bengaluru',
-    name: 'Happy Tails Vet Clinic',
-    area: 'Indiranagar',
+    area: 'Whitefield',
+    name: 'Happy Paws Vet Care',
     phone: '+91 98765 11111',
     timing: '9:00 AM - 8:00 PM',
-    services: ['Vaccination', 'General Checkup', 'Emergency']
+    services: ['Vaccination', 'Checkup', 'Emergency'],
+    lat: 12.9698,
+    lng: 77.7500
   },
   {
     id: 2,
     type: 'Pet Shop',
     city: 'Bengaluru',
-    name: 'PawMart Essentials',
-    area: 'Jayanagar',
+    area: 'Indiranagar',
+    name: 'Pet Basket',
     phone: '+91 98765 22222',
     timing: '10:00 AM - 9:00 PM',
-    services: ['Food', 'Toys', 'Grooming Supplies']
+    services: ['Food', 'Toys', 'Accessories'],
+    lat: 12.9784,
+    lng: 77.6408
   },
   {
     id: 3,
-    type: 'Vet Clinic',
+    type: 'Grooming',
     city: 'Bengaluru',
-    name: 'Feather & Fur Care Center',
-    area: 'Whitefield',
+    area: 'Koramangala',
+    name: 'Fluffy Groom Studio',
     phone: '+91 98765 33333',
-    timing: '8:30 AM - 7:30 PM',
-    services: ['Bird Care', 'Rabbit Care', 'Dental']
+    timing: '9:30 AM - 7:00 PM',
+    services: ['Bath', 'Hair Cut', 'Nail Trim'],
+    lat: 12.9352,
+    lng: 77.6245
   },
+
+  // Mysuru
   {
     id: 4,
-    type: 'Pet Shop',
-    city: 'Bengaluru',
-    name: 'Pet Basket Hub',
-    area: 'Koramangala',
-    phone: '+91 98765 44444',
-    timing: '10:00 AM - 8:30 PM',
-    services: ['Aquarium Items', 'Beds', 'Accessories']
-  },
-  {
-    id: 5,
     type: 'Vet Clinic',
     city: 'Mysuru',
-    name: 'CarePaws Animal Clinic',
     area: 'VV Mohalla',
-    phone: '+91 98765 55555',
+    name: 'CarePaws Clinic',
+    phone: '+91 98765 44444',
     timing: '9:00 AM - 7:00 PM',
-    services: ['Checkup', 'Surgery', 'Vaccination']
+    services: ['Checkup', 'Vaccination'],
+    lat: 12.2958,
+    lng: 76.6394
   },
+
+  // Chennai
+  {
+    id: 5,
+    type: 'Pet Shop',
+    city: 'Chennai',
+    area: 'T Nagar',
+    name: 'Paw World',
+    phone: '+91 98765 55555',
+    timing: '10:00 AM - 8:30 PM',
+    services: ['Food', 'Beds', 'Aquarium'],
+    lat: 13.0418,
+    lng: 80.2341
+  },
+
+  // Hyderabad
   {
     id: 6,
-    type: 'Pet Shop',
-    city: 'Mysuru',
-    name: 'TailWag Pet Store',
-    area: 'Gokulam',
+    type: 'Vet Clinic',
+    city: 'Hyderabad',
+    area: 'Banjara Hills',
+    name: 'PetLife Hospital',
     phone: '+91 98765 66666',
-    timing: '10:30 AM - 8:00 PM',
-    services: ['Food', 'Treats', 'Collars']
+    timing: '24 Hours',
+    services: ['Emergency', 'Surgery'],
+    lat: 17.4126,
+    lng: 78.4482
   }
 ];
 
@@ -723,7 +681,11 @@ function Sidebar({ user, active, onNavigate, onProfileClick, onSignOut }) {
         { key: 'appointments', label: '📅 Appointments' },
         { key: 'articles', label: '📚 Articles' },
         { key: 'places', label: '📍 Places' },
-        { key: 'profile', label: '👤 Profile' }
+        { key: 'grooming', label: '✂️ Grooming' },
+        { key: 'community', label: '🐾 Community' },
+        { key: 'competition', label: '🏆 Competitions' },
+        { key: 'profile', label: '👤 Profile' },
+        { key: 'music', label: '🎵 Music' }
       ];
 
   return (
@@ -1057,59 +1019,244 @@ function DashboardSection({ user, myPets, assignedPatients, myVisits, myAppointm
 }
 
 function ArticlesSection() {
-  const [animalFilter, setAnimalFilter] = useState('All');
-  const filters = ['All', ...Array.from(new Set(ARTICLES.map(a => a.animal)))];
-  const filtered = animalFilter === 'All'
-    ? ARTICLES
-    : ARTICLES.filter(a => a.animal === animalFilter);
+  const [animalFilter, setAnimalFilter] = React.useState("All");
+
+  const articles = [
+  {
+    title: "Dog Nutrition Guide",
+    description: "Learn the basics of healthy dog nutrition.",
+    image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800",
+    animal: "Dog",
+    emoji: "🐶",
+    link: "https://www.akc.org/expert-advice/nutrition/"
+  },
+  {
+    title: "Dog Training Tips",
+    description: "Simple training methods for your dog.",
+    image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800",
+    animal: "Dog",
+    emoji: "🐶",
+    link: "https://www.akc.org/expert-advice/training/"
+  },
+  {
+    title: "Cat Care Basics",
+    description: "Everything new cat owners should know.",
+    image: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800",
+    animal: "Cat",
+    emoji: "🐱",
+    link: "https://www.aspca.org/pet-care/cat-care"
+  },
+  {
+    title: "Cat Grooming Tips",
+    description: "Keep your cat healthy and clean.",
+    image: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800",
+    animal: "Cat",
+    emoji: "🐱",
+    link: "https://www.petmd.com/cat/grooming"
+  },
+  {
+    title: "Parrot Care Guide",
+    description: "Learn how to care for parrots properly.",
+    image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800",
+    animal: "Parrot",
+    emoji: "🦜",
+    link: "https://www.thesprucepets.com/parrots-4162127"
+  },
+  {
+    title: "Fish Tank Maintenance",
+    description: "Tips for maintaining a healthy aquarium.",
+    image: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800",
+    animal: "Fish",
+    emoji: "🐠",
+    link: "https://www.aquariumcoop.com/blogs/aquarium"
+  },
+  {
+    title: "Rabbit Diet Tips",
+    description: "Healthy food habits for rabbits.",
+    image: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800",
+    animal: "Rabbit",
+    emoji: "🐰",
+    link: "https://rabbit.org/care/"
+  }
+];
+
+  const filteredArticles =
+    animalFilter === "All"
+      ? articles
+      : articles.filter((a) => a.animal === animalFilter);
 
   return (
-    <div>
-      <Card style={{ marginBottom: 16 }}>
-        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>📚 Pet Care Articles</h3>
-        <p className="muted">Filter articles by animal type and explore quick pet care guides.</p>
+    <div className="articles-section">
+      <h2>🐾 Pet Articles</h2>
 
-        <div className="filter-row" style={{ marginTop: 14 }}>
-          {filters.map(f => (
-            <button
-              key={f}
-              className={`chip-btn ${animalFilter === f ? 'active' : ''}`}
-              onClick={() => setAnimalFilter(f)}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-      </Card>
+      <div style={{ marginBottom: "20px" }}>
+        {["All", "Dog", "Cat", "Fish", "Parrot", "Rabbit"].map((animal) => (
+          <button
+            key={animal}
+            onClick={() => setAnimalFilter(animal)}
+            style={{
+              margin: "5px",
+              padding: "8px 15px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer"
+            }}
+          >
+            {animal}
+          </button>
+        ))}
+      </div>
 
-      <div className="card-grid-3">
-        {filtered.map(article => (
-          <Card key={article.id} style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ height: 120, display:'flex', alignItems:'center', justifyContent:'center', fontSize:42, background: article.bg }}>
-              {article.emoji}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px"
+        }}
+      >
+        {filteredArticles.map((article, index) => (
+          <div
+            key={index}
+            style={{
+              borderRadius: "15px",
+              overflow: "hidden",
+              background: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
+            }}
+          >
+            <img
+              src={article.image}
+              alt={article.title}
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover"
+              }}
+            />
+
+            <div style={{ padding: "15px" }}>
+              <h3>
+                {article.emoji} {article.title}
+              </h3>
+
+              <p>{article.description}</p>
+
+              <a
+                href={article.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Read More →
+              </a>
             </div>
-            <div style={{ padding: 14 }}>
-              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 8 }}>
-                <Badge>{article.animal}</Badge>
-                <span className="muted">{article.readTime}</span>
-              </div>
-              <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>{article.title}</div>
-              <div className="muted">{article.summary}</div>
-              <div className="tag-row">
-                <span className="tiny-tag">{article.category}</span>
-                <span className="tiny-tag">Pet Care</span>
-              </div>
-            </div>
-          </Card>
+          </div>
         ))}
       </div>
     </div>
   );
 }
 
+function CommunitySection() {
+  return (
+    <div>
+      <Card>
+        <h3 className="cute-title">🐾 Pet Community</h3>
+        <p className="muted">Connect with other pet lovers 💖</p>
+
+        <div className="mini-list" style={{ marginTop: 12 }}>
+          <div className="mini-item">
+            <div>
+              <div style={{ fontWeight: 600 }}>💬 Discussions</div>
+              <div className="muted">Ask questions & share tips</div>
+            </div>
+          </div>
+
+          <div className="mini-item">
+            <div>
+              <div style={{ fontWeight: 600 }}>📸 Share Moments</div>
+              <div className="muted">Post cute pet photos</div>
+            </div>
+          </div>
+
+          <div className="mini-item">
+            <div>
+              <div style={{ fontWeight: 600 }}>❤️ Pet Stories</div>
+              <div className="muted">Read experiences from owners</div>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function CompetitionSection() {
+  return (
+    <div>
+      <Card>
+        <h3 className="cute-title">🏆 Pet Competitions</h3>
+        <p className="muted">Join fun contests and win rewards 🎉</p>
+
+        <div className="mini-list" style={{ marginTop: 12 }}>
+          <div className="mini-item">
+            <div>
+              <div style={{ fontWeight: 600 }}>🐶 Cutest Pet Contest</div>
+              <div className="muted">Upload your pet photo</div>
+            </div>
+            <span>📸</span>
+          </div>
+
+          <div className="mini-item">
+            <div>
+              <div style={{ fontWeight: 600 }}>🎭 Talent Show</div>
+              <div className="muted">Show tricks & skills</div>
+            </div>
+            <span>🎥</span>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+
 function PlacesSection() {
-  const [cityFilter, setCityFilter] = useState('All');
+  const [cityFilter, setCityFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('All');
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        // Bengaluru nearby
+        if (lat > 12 && lat < 13.5) {
+          setCityFilter('Bengaluru');
+        }
+
+        // Mysuru nearby
+        else if (lat > 12.1 && lat < 12.5) {
+          setCityFilter('Mysuru');
+        }
+
+        // Chennai nearby
+        else if (lat > 13 && lat < 13.3) {
+          setCityFilter('Chennai');
+        }
+
+        // Hyderabad nearby
+        else if (lat > 17 && lat < 17.6) {
+          setCityFilter('Hyderabad');
+        }
+
+        else {
+          setCityFilter('Bengaluru');
+        }
+      });
+    }
+  }, []);
+
   const cities = ['All', ...Array.from(new Set(PLACES.map(p => p.city)))];
   const types = ['All', 'Vet Clinic', 'Pet Shop'];
 
@@ -1120,59 +1267,86 @@ function PlacesSection() {
   });
 
   return (
-    <div>
-      <Card style={{ marginBottom: 16 }}>
-        <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>📍 Vet Clinics & Pet Shops</h3>
-        <p className="muted">Browse care locations and stores for pet essentials.</p>
+  <div>
+    <Card style={{ marginBottom: 16 }}>
+      <h3 className="cute-title" style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>
+        📍 Vet Clinics & Pet Shops
+      </h3>
 
-        <div className="filter-row" style={{ marginTop: 14 }}>
-          {cities.map(c => (
-            <button
-              key={c}
-              className={`chip-btn ${cityFilter === c ? 'active' : ''}`}
-              onClick={() => setCityFilter(c)}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
+      <p className="muted">Browse care locations and stores for pet essentials.</p>
 
-        <div className="filter-row">
-          {types.map(t => (
-            <button
-              key={t}
-              className={`chip-btn ${typeFilter === t ? 'active' : ''}`}
-              onClick={() => setTypeFilter(t)}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </Card>
-
-      <div className="card-grid-3">
-        {filtered.map(place => (
-          <Card key={place.id}>
-            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 10 }}>
-              <Badge bg={place.type === 'Vet Clinic' ? '#EEEDFE' : '#E1F5EE'} color={place.type === 'Vet Clinic' ? '#534AB7' : '#0F6E56'}>
-                {place.type === 'Vet Clinic' ? '🩺 Vet Clinic' : '🛍️ Pet Shop'}
-              </Badge>
-              <span className="muted">{place.city}</span>
-            </div>
-
-            <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>{place.name}</div>
-            <div className="muted" style={{ marginBottom: 6 }}>📍 {place.area}</div>
-            <div className="muted" style={{ marginBottom: 6 }}>☎️ {place.phone}</div>
-            <div className="muted" style={{ marginBottom: 8 }}>⏰ {place.timing}</div>
-
-            <div className="tag-row">
-              {place.services.map((s, i) => <span key={i} className="tiny-tag">{s}</span>)}
-            </div>
-          </Card>
+      <div className="filter-row" style={{ marginTop: 14 }}>
+        {cities.map(c => (
+          <button
+            key={c}
+            className={`chip-btn ${cityFilter === c ? 'active' : ''}`}
+            onClick={() => setCityFilter(c)}
+          >
+            {c}
+          </button>
         ))}
       </div>
+
+      <div className="filter-row">
+        {types.map(t => (
+          <button
+            key={t}
+            className={`chip-btn ${typeFilter === t ? 'active' : ''}`}
+            onClick={() => setTypeFilter(t)}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+    </Card>
+
+    <div className="card-grid-3">
+      {filtered.map(place => (
+        <Card key={place.id}>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 10 }}>
+            <Badge bg={place.type === 'Vet Clinic' ? '#EEEDFE' : '#E1F5EE'}
+                   color={place.type === 'Vet Clinic' ? '#534AB7' : '#0F6E56'}>
+              {place.type === 'Vet Clinic' ? '🩺 Vet Clinic' : '🛍️ Pet Shop'}
+            </Badge>
+            <span className="muted">{place.city}</span>
+          </div>
+
+          <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6 }}>{place.name}</div>
+          <div className="muted">📍 {place.area}</div>
+          <div className="muted">☎️ {place.phone}</div>
+          <div className="muted">⏰ {place.timing}</div>
+
+          <div className="tag-row">
+            {place.services.map((s, i) => (
+              <span key={i} className="tiny-tag">{s}</span>
+            ))}
+          </div>
+        </Card>
+      ))}
     </div>
-  );
+
+    {/* 🗺️ MAP SECTION */}
+    <div style={{ marginTop: 20 }}>
+      <Card>
+        <h3 className="cute-title" style={{ fontSize: 18, marginBottom: 10 }}>
+          🗺️ Map View
+        </h3>
+        <iframe
+  title="Nearby Pet Services"
+  src={`https://maps.google.com/maps?q=${cityFilter}+pet+clinic+pet+shop+pet+grooming&z=13&output=embed`}
+  width="100%"
+  height="400"
+  style={{
+    border: "0",
+    borderRadius: "12px"
+  }}
+  loading="lazy"
+  allowFullScreen
+></iframe>
+        </Card>
+    </div>
+  </div>
+);
 }
 
 function AppointmentsSection({ user, pets, doctors, appointments, notify, refreshData }) {
@@ -1392,6 +1566,69 @@ function AuthScreen({ onLogin, notify }) {
   );
 }
 
+const PET_TYPES = [
+  "Dog",
+  "Cat",
+  "Parrot",
+  "Fish",
+  "Rabbit"
+];
+
+const GROOMING_SERVICES = [
+  {
+    id: 1,
+    title: "Basic Bath",
+    emoji: "🛁",
+    price: "₹499",
+    includes: ["Bath", "Drying", "Brushing"]
+  },
+  {
+    id: 2,
+    title: "Full Grooming",
+    emoji: "✂️",
+    price: "₹999",
+    includes: ["Bath", "Hair Cut", "Nail Trim"]
+  },
+  {
+    id: 3,
+    title: "Luxury Spa",
+    emoji: "✨",
+    price: "₹1499",
+    includes: ["Massage", "Fur Styling", "Perfume"]
+  },
+  {
+    id: 4,
+    title: "Nail & Ear Care",
+    emoji: "🐾",
+    price: "₹399",
+    includes: ["Nail Clipping", "Ear Cleaning"]
+  }
+];
+
+const GROOMING_CENTERS = [
+  {
+    id: 1,
+    name: "Fluffy Groom Studio",
+    city: "Bengaluru",
+    rating: "4.8 ⭐",
+    timing: "9 AM - 8 PM"
+  },
+  {
+    id: 2,
+    name: "Paw Spa & Care",
+    city: "Bengaluru",
+    rating: "4.7 ⭐",
+    timing: "10 AM - 7 PM"
+  },
+  {
+    id: 3,
+    name: "Pet Glow Salon",
+    city: "Mysuru",
+    rating: "4.6 ⭐",
+    timing: "9 AM - 6 PM"
+  }
+];
+
 function MainApp({ user, data, refreshData, onLogout, notify }) {
   const [section, setSection] = useState('dashboard');
   const [view,setView] = useState('list');
@@ -1577,6 +1814,156 @@ function MainApp({ user, data, refreshData, onLogout, notify }) {
               {section === 'appointments' && '📅 Appointments'}
               {section === 'articles' && '📚 Articles'}
               {section === 'places' && '📍 Places'}
+              {section === 'music' && <MusicSection />}
+              {section === 'grooming' && (
+  <div>
+
+    {/* HEADER */}
+    <Card style={{ marginBottom: 20 }}>
+      <h2 className="cute-title">
+        ✂️ Pet Grooming & Spa
+      </h2>
+
+      <p style={{ marginTop: 10 }}>
+        Because every pet deserves a spa day 🐾✨
+      </p>
+    </Card>
+
+    {/* SERVICES */}
+    <h3 className="cute-title" style={{ marginBottom: 15 }}>
+      ✂️ Grooming Services
+    </h3>
+
+    <div className="grooming-section grid grid-cols-1 md:grid-cols-2 gap-4">
+
+     {GROOMING_SERVICES.map((item) => (
+  <div
+  key={item.id}
+  onClick={() => alert(`${item.title}\n\n${item.description}`)}
+  style={{
+    cursor: "pointer",
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "16px",
+    marginBottom: "20px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.08)"
+  }}
+>
+    <h3
+      style={{
+        color: "#222",
+        fontSize: "22px",
+        marginBottom: "10px"
+      }}
+    >
+      {item.title}
+    </h3>
+
+    <p
+      style={{
+        color: "#555",
+        fontSize: "16px",
+        lineHeight: "1.6"
+      }}
+    >
+      {item.description}
+    </p>
+  </div>
+))}
+
+    </div>
+
+    {/* GROOMING CENTERS */}
+<h3
+  className="cute-title"
+  style={{ marginTop: 30, marginBottom: 15 }}
+>
+  🏪 Nearby Grooming Centers
+</h3>
+
+<div className="grooming-section grid grid-cols-1 md:grid-cols-2 gap-4">
+
+  {GROOMING_CENTERS.map((center) => (
+
+    <Card
+      key={center.id}
+      onClick={() =>
+        alert(
+          `${center.name}
+
+📍 ${center.city}
+
+⭐ ${center.rating}
+
+⏰ ${center.timing}`
+        )
+      }
+      style={{
+        cursor: "pointer",
+        background: "#fff",
+        padding: "18px",
+        borderRadius: "16px",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+        transition: "0.3s"
+      }}
+    >
+
+      <h3 style={{ color: "#222", marginBottom: 10 }}>
+        {center.name}
+      </h3>
+
+      <p style={{ color: "#555" }}>
+        📍 {center.city}
+      </p>
+
+      <p style={{ color: "#555" }}>
+        ⭐ {center.rating}
+      </p>
+
+      <p style={{ color: "#555" }}>
+        ⏰ {center.timing}
+      </p>
+
+    </Card>
+
+  ))}
+
+</div>
+
+    {/* SPA PACKAGES */}
+    <h3
+      className="cute-title"
+      style={{ marginTop: 30, marginBottom: 15 }}
+    >
+      🛁 Spa Packages
+    </h3>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <Card>
+        <h3>🌸 Basic Spa</h3>
+        <p>Bath + Drying</p>
+        <h4>₹499</h4>
+      </Card>
+
+      <Card>
+        <h3>✨ Premium Spa</h3>
+        <p>Bath + Fur Styling</p>
+        <h4>₹999</h4>
+      </Card>
+
+      <Card>
+        <h3>👑 Luxury Spa</h3>
+        <p>Massage + Full Grooming</p>
+        <h4>₹1499</h4>
+      </Card>
+
+    </div>
+
+  </div>
+)}
+              {section === 'community' && <CommunitySection />}
+              {section === 'competition' && <CompetitionSection />}
             </h2>
             <p style={{fontSize:13,color:'#666'}}>
               {user.role === 'doctor' ? 'Veterinary workspace' : 'Pet owner workspace'}
