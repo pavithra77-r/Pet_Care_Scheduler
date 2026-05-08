@@ -7,6 +7,10 @@
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1442,29 +1446,39 @@ function AuthScreen({ onLogin, notify }) {
   }
 
   async function handleRegister() {
-    try {
-      if (!form.name || !form.email || !form.password) {
-        return setError('Please fill all required fields');
-      }
+  try {
 
-      await api("/api/register", {
-        method: "POST",
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.password,
-          role: role,
-          specialization: form.specialization
-        })
-      });
-
-      setError('');
-      setTab('login');
-      notify('Registration complete', 'Your account has been created successfully.', 'success');
-    } catch (err) {
-      setError(err.message);
+    // 1️⃣ REQUIRED FIELDS CHECK
+    if (!form.name || !form.email || !form.password) {
+      return setError('Please fill all required fields');
     }
-  }
+
+    // 2️⃣ PHONE VALIDATION (ADD THIS HERE)
+    if (!validatePhone(form.phone)) {
+      return setError('Invalid phone number (+91XXXXXXXXXX)');
+    }
+
+    // 3️⃣ API CALL (ONLY IF VALID)
+    await api("/api/register", {
+      method: "POST",
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        phone: form.phone,   // 👈 IMPORTANT ADD THIS
+        role: role,
+        specialization: form.specialization
+      })
+    });
+
+    setError('');
+    setTab('login'); // (fix your incomplete line here)
+
+  } catch (err) {
+  console.log("REGISTER ERROR:", err);
+  setError(err.message || "Registration failed");
+}
+}
 
   return (
     <div
@@ -1554,7 +1568,14 @@ function AuthScreen({ onLogin, notify }) {
           <Input label="Email *" type="email" placeholder="you@example.com" value={form.email} onChange={e=>set('email',e.target.value)}/>
           <Input label="Password *" type="password" placeholder="••••••••" value={form.password} onChange={e=>set('password',e.target.value)}/>
           {tab==='register'&&role==='doctor'&&<Input label="Specialization" placeholder="e.g. Small Animals" value={form.specialization} onChange={e=>set('specialization',e.target.value)}/>}
-
+          {tab === 'register' && (
+  <Input
+    label="Phone Number *"
+    placeholder="+91XXXXXXXXXX"
+    value={form.phone}
+    onChange={e => set('phone', e.target.value)}
+  />
+)}
           {error&&<p style={{color:'#D85A30',fontSize:13,marginBottom:12}}>{error}</p>}
 
           <Btn onClick={tab==='login'?handleLogin:handleRegister} style={{width:'100%'}}>
@@ -1630,7 +1651,8 @@ const GROOMING_CENTERS = [
 ];
 
 function MainApp({ user, data, refreshData, onLogout, notify }) {
-  const [section, setSection] = useState('dashboard');
+  const [section, setSection] = useState('services');
+  const [selectedService, setSelectedService] = useState(null);
   const [view,setView] = useState('list');
   const [showProfile, setShowProfile] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
@@ -1640,6 +1662,32 @@ function MainApp({ user, data, refreshData, onLogout, notify }) {
     name:'',type:'Dog',breed:'',age:'',feedingSchedule:'',medicineReminder:'',vetId:''
   });
   const [petError,setPetError] = useState('');
+
+  const L = window.L;
+
+  useEffect(() => {
+  if (section !== "grooming") return;
+
+  // prevent duplicate map reloading
+  const existing = document.getElementById("map");
+  if (!existing) return;
+
+  const map = L.map("map").setView([12.9716, 77.5946], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  GROOMING_CENTERS.forEach((center) => {
+    if (center.lat && center.lng) {
+      L.marker([center.lat, center.lng])
+        .addTo(map)
+        .bindPopup(center.name);
+    }
+  });
+
+  return () => map.remove();
+}, [section]);
 
   const setPetField = (k,v) => setPetForm(f=>({...f,[k]:v}));
 
@@ -1836,40 +1884,43 @@ function MainApp({ user, data, refreshData, onLogout, notify }) {
 
     <div className="grooming-section grid grid-cols-1 md:grid-cols-2 gap-4">
 
-     {GROOMING_SERVICES.map((item) => (
-  <div
-  key={item.id}
-  onClick={() => alert(`${item.title}\n\n${item.description}`)}
-  style={{
-    cursor: "pointer",
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "16px",
-    marginBottom: "20px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.08)"
-  }}
->
-    <h3
-      style={{
-        color: "#222",
-        fontSize: "22px",
-        marginBottom: "10px"
-      }}
-    >
-      {item.title}
-    </h3>
+     <div style={{ position: "relative", zIndex: 9999 }}>
+  {GROOMING_SERVICES.map((item) => (
+    <div
+      key={item.id}
+      onClick={() => {
+        setSelectedService({
+          title: item.title,
+          description: item.description,
+          price: item.price
+        });
 
-    <p
+        setSection("grooming-details");
+      }}
       style={{
-        color: "#555",
-        fontSize: "16px",
-        lineHeight: "1.6"
+        cursor: "pointer",
+        background: "#fff",
+        padding: "20px",
+        borderRadius: "16px",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+        position: "relative",
+        zIndex: 9999
       }}
     >
-      {item.description}
-    </p>
-  </div>
-))}
+      <h3 style={{ fontSize: "22px", marginBottom: "10px" }}>
+        {item.title}
+      </h3>
+
+      <p style={{ fontSize: "16px", color: "#555" }}>
+        {item.description}
+      </p>
+    </div>
+  ))}
+</div>
+  
+{section === 'grooming-details' && (
+  <GroomingDetailsSection service={selectedService} />
+)}
 
     </div>
 
@@ -1930,35 +1981,117 @@ function MainApp({ user, data, refreshData, onLogout, notify }) {
 
 </div>
 
-    {/* SPA PACKAGES */}
-    <h3
-      className="cute-title"
-      style={{ marginTop: 30, marginBottom: 15 }}
+   {/* SPA PACKAGES */}
+<h3
+  className="cute-title"
+  style={{ marginTop: 30, marginBottom: 15 }}
+>
+  🛁 Spa Packages
+</h3>
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+  {[
+    {
+      id: 1,
+      title: "🌸 Basic Spa",
+      description: "Bath + Drying",
+      price: "₹499"
+    },
+    {
+      id: 2,
+      title: "✨ Premium Spa",
+      description: "Bath + Fur Styling",
+      price: "₹999"
+    },
+    {
+      id: 3,
+      title: "👑 Luxury Spa",
+      description: "Massage + Full Grooming",
+      price: "₹1499"
+    }
+  ].map((spa) => (
+
+    <Card
+      key={spa.id}
+      onClick={() => {
+        setSelectedService(spa);
+        setSection('grooming-details');
+      }}
+      style={{
+        cursor: "pointer",
+        background: "#fff",
+        padding: 20,
+        borderRadius: 16,
+        boxShadow: "0 4px 10px rgba(0,0,0,0.08)"
+      }}
     >
-      🛁 Spa Packages
-    </h3>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <h3 style={{ color: "#222" }}>
+        {spa.title}
+      </h3>
 
-      <Card>
-        <h3>🌸 Basic Spa</h3>
-        <p>Bath + Drying</p>
-        <h4>₹499</h4>
-      </Card>
+      <p style={{ color: "#555", marginTop: 10 }}>
+        {spa.description}
+      </p>
 
-      <Card>
-        <h3>✨ Premium Spa</h3>
-        <p>Bath + Fur Styling</p>
-        <h4>₹999</h4>
-      </Card>
+      <h4 style={{ marginTop: 15 }}>
+        {spa.price}
+      </h4>
 
-      <Card>
-        <h3>👑 Luxury Spa</h3>
-        <p>Massage + Full Grooming</p>
-        <h4>₹1499</h4>
-      </Card>
+    </Card>
+    
 
+  ))}
+{section === 'grooming' && (
+  <div>
+
+    {/* 1️⃣ HEADER */}
+    <h2>✂️ Grooming & Spa</h2>
+
+    {/* 2️⃣ SERVICES CARDS */}
+    <h3>Services</h3>
+
+    <div style={{ display: "grid", gap: "12px" }}>
+      {GROOMING_SERVICES.map((item) => (
+        <div
+          key={item.id}
+          onClick={() => setSelectedService(item)}
+          style={{
+            cursor: "pointer",
+            background: "#fff",
+            padding: "15px",
+            borderRadius: "12px",
+            boxShadow: "0 3px 10px rgba(0,0,0,0.1)"
+          }}
+        >
+          <h4>{item.title}</h4>
+          <p>{item.description}</p>
+        </div>
+      ))}
     </div>
+
+    {/* 3️⃣ BOOKING SECTION (simple UI for now) */}
+    <h3 style={{ marginTop: 20 }}>📅 Book Groomer</h3>
+
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <input placeholder="Your Name" />
+      <input placeholder="Pet Type" />
+      <input placeholder="Location" />
+
+      <button onClick={() => alert("Booking Requested!")}>
+        Book Now
+      </button>
+    </div>
+
+    {/* 4️⃣ MAP SECTION */}
+    <h3 style={{ marginTop: 20 }}>🗺️ Nearby Grooming Centers</h3>
+
+    <div id="map" style={{ height: "300px", borderRadius: "12px" }}></div>
+
+  </div>
+)}
+</div>
 
   </div>
 )}
@@ -2207,6 +2340,13 @@ function App() {
   });
   const [user, setUser] = useState(null);
   const [toasts, setToasts] = useState([]);
+  
+  const [email, setEmail] = useState("");
+
+  const validatePhone = (phone) => {
+    const regex = /^\+91\d{10}$/;
+    return regex.test(phone);
+  };
 
   async function refreshData() {
     try {
@@ -2257,6 +2397,7 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 {% endraw %}
 </body>
 </html>
